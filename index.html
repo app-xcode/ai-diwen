@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistant Project</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body class="bg-gradient-to-br from-blue-50 to-blue-200 min-h-screen flex items-center justify-center">
+    <div class="flex flex-col md:flex-row gap-8 bg-white/60 rounded-xl shadow-lg p-8">
+        <!-- Kolom Kiri -->
+        <div class="flex flex-col items-center justify-center gap-6">
+            <div id="assistant-avatar-container" class="flex justify-center">
+                <svg id="assistant-avatar" width="80" height="80" viewBox="0 0 80 80"
+                    class="drop-shadow-lg bg-white rounded-full border border-gray-300" >
+                    <circle cx="40" cy="40" r="38" fill="#f5f5f5" stroke="#bbb" stroke-width="2" />
+                    <ellipse cx="40" cy="55" rx="18" ry="8" fill="#333" id="mouth" />
+                    <ellipse id="eyelid-left" cx="30" cy="35" rx="5" ry="5" fill="#333" />
+                    <ellipse id="eyelid-right" cx="50" cy="35" rx="5" ry="5" fill="#333" />
+                </svg>
+            </div>
+            <div class="flex gap-2">
+                <input id="prompt" type="text" placeholder="Tulis pertanyaan..."
+                    class="px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 w-64 shadow" />
+                <button onclick="kirim()"
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow transition">Kirim</button>
+            </div>
+        </div>
+        <!-- Kolom Kanan -->
+        <div class="flex flex-col justify-start">
+            <div class="text-lg font-semibold mb-2">Jawaban:</div>
+            <div id="output" class="bg-white rounded shadow p-4 min-h-[48px] w-80 border border-gray-200">Belum ada jawaban.</div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/eye.js"></script>
+    <script src="scripts/gemini.js"></script>
+</body>
+
+</html>

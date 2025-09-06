@@ -183,7 +183,7 @@
                     let alamat = data?.display_name || "Alamat tidak ditemukan";
                     marker.bindPopup(`
                         <b>Lokasi Anda:</b><br>
-                        Koordinat: ${lat.toFixed(6)}, ${lng.toFixed(6)}<br>
+                        Koordinat: ${lat}, ${lng}<br>
                         Akurasi: ${acc.toFixed(1)} meter<br>
                         Alamat: ${alamat}
                     `).openPopup();

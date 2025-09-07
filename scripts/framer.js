@@ -92,6 +92,16 @@ if (hash) {
     }
 }
 
+let interval2 = setInterval(() => {
+    const kepada = localStorage.getItem("kepada"); 
+    if (kepada) {
+        document.querySelector(`h1`).textContent = kepada;
+        if (document.querySelector(`h1`).textContent === kepada) {
+            clearInterval(interval2);
+        }
+    }
+}, 100);
+
 const container = document.createElement("x");
 container.className = "et";
 for (let i = 1; i <= 50; i++) {

@@ -92,7 +92,7 @@ function safeDecodeBase64(str) {
 window.onload = function () {
     const hash = window.location.hash.substring(1);
     if (hash) {
-        const decoded = safeDecodeBase64(hash);
+        var decoded = safeDecodeBase64(hash);
         if (decoded) {
             decoded = "Dear<br>" + decoded;
             localStorage.setItem("kepada", decoded);

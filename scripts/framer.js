@@ -140,3 +140,6 @@ window.onload = function () {
     updateH1();
 }
 setInterval(updateH1, 3000);
+document.addEventListener("gesturestart", function(e) {
+  e.preventDefault();
+});

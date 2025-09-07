@@ -90,7 +90,7 @@ function safeDecodeBase64(str) {
 function updateH1() {
      var interval2 = setInterval(() => {
         const kepada = localStorage.getItem("kepada");
-        if (kepada) {
+        if (kepada && document.querySelector(`h1`)) {
             document.querySelector(`h1`).innerHTML = kepada;
             if (document.querySelector(`h1`).innerHTML === kepada) {
                 clearInterval(interval2);

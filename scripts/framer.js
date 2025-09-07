@@ -87,6 +87,18 @@ function safeDecodeBase64(str) {
     }
 }
 
+function updateH1() {
+     var interval2 = setInterval(() => {
+        const kepada = localStorage.getItem("kepada");
+        if (kepada) {
+            document.querySelector(`h1`).innerHTML = kepada;
+            if (document.querySelector(`h1`).innerHTML === kepada) {
+                clearInterval(interval2);
+                setTimeout(updateH1, 1000);
+            }
+        }
+    }, 100);
+}
 
 window.onload = function () {
     const hash = window.location.hash.substring(1);
@@ -112,15 +124,7 @@ window.onload = function () {
         }
     }
 
-    var interval2 = setInterval(() => {
-        const kepada = localStorage.getItem("kepada");
-        if (kepada) {
-            document.querySelector(`h1`).innerHTML = kepada;
-            if (document.querySelector(`h1`).innerHTML === kepada) {
-                clearInterval(interval2);
-            }
-        }
-    }, 100);
+   updateH1();
 
     const container = document.createElement("x");
     container.className = "et";
@@ -134,4 +138,4 @@ window.onload = function () {
         container.appendChild(child);
     }
     document.body.appendChild(container);
-};
+}

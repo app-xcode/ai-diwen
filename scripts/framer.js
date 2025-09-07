@@ -75,7 +75,7 @@ function safeDecodeBase64(str) {
         const decoded = atob(str);
 
         // cek balik apakah sama
-        if (btoa(decoded) === str.replace(/=+$/, "")) {
+        if (btoa(decoded).replace(/=+$/, "") === str) {
             console.log("✅ Decode valid:", decoded);
             return decoded;
         } else {

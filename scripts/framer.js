@@ -76,7 +76,6 @@ function safeDecodeBase64(str) {
 
         // cek balik apakah sama
         if (btoa(decoded).replace(/=+$/, "") === str) {
-            console.log("✅ Decode valid:", decoded);
             return decoded;
         } else {
             console.warn("⚠️ Decode menghasilkan karakter aneh:", decoded);
@@ -106,7 +105,6 @@ window.onload = function () {
 
     } else {
         if (localStorage.getItem("kepada")) {
-            console.log("dapat.", localStorage);
             document.querySelector(`h1`).innerHTML = localStorage.getItem("kepada");
         } else {
             console.log("Tidak ada hash di URL.");

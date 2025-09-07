@@ -28,11 +28,10 @@ let interval = setInterval( () => {
             e.preventDefault();
             const form = document.querySelector(`form`);
             const Nama = document.querySelector(`[name="Nama"]`);
-            const Alamat = document.querySelector(`[name="Alamat"]`);
             const Whatsapp = document.querySelector(`[name="Whatsapp"]`);
             const Kode = document.querySelector(`[name="Kode"]`);
             form.reportValidity();
-            if (Nama.checkValidity() && Alamat.checkValidity() && Whatsapp.checkValidity() && !klicks) {
+            if (Nama.checkValidity() && Whatsapp.checkValidity() && !klicks) {
                 if (Kode.value.trim() * 1 !== 20) {
                     Kode.setCustomValidity(`Kode salah! Tidak bisa kirim undangan.`);
                     Kode.reportValidity();
@@ -45,14 +44,12 @@ let interval = setInterval( () => {
                 //     },
                 //     body: JSON.stringify({
                 //         Nama: Nama.value,
-                //         Alamat: Alamat.value,
                 //         Whatsapp: `0` + Whatsapp.value.trim().replace(/^0|^\+62|^62|\+|\-| /g, ``),
                 //         Kode: Kode.value
                 //     })
                 // });
                 const encodedNama = btoa(Nama.value.trim()).replace(/=/g, ``)
-                  , encodedAlamat = btoa(Alamat.value.trim()).replace(/=/g, ``)
-                  , undanganUrl = `https://ovan-carla.ct.ws/${encodedNama}/${encodedAlamat}`
+                  , undanganUrl = `https://ovan-carla.ct.ws/${encodedNama}`
                   , nomor = `62` + Whatsapp.value.trim().replace(/^0|^\+62|^62|\+|\-| /g, ``)
                   , pesan = `Dear ${Nama.value.trim()},\n\nDengan segala hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir pada acara pernikahan Mikron Stefanus Mba’u & Carla Nggeolima, S.H., yang akan diselenggarakan pada Sabtu, 21 Juni 2025 di Kupang, Nusa Tenggara Timur.\n\nMerupakan sukacita bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu bagi kedua mempelai.\n\nBerikut link undangannya:\n${undanganUrl}`;
                 waLink = `https://api.Whatsapp.com/send?phone=${nomor}&text=${encodeURIComponent(pesan)}`;

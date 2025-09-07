@@ -70,47 +70,49 @@ let interval = setInterval(() => {
 }
     , 300);
 
-const hash = window.location.hash.substring(1);
-if (hash) {
-    try {
-        const decoded = atob(hash);
-        localStorage.setItem("kepada", decoded);
-        console.log("Hasil decode:", decoded);
-        window.location.hash = "";
-        document.querySelector(`h1`).textContent = decoded;
-    } catch (e) {
-        console.error("Hash bukan base64 valid:", e);
-        document.querySelector(`h1`).textContent = "";
-    }
-} else {
-    if (localStorage.getItem("kepada")) {
-        console.log("dapat.", localStorage);
-        document.querySelector(`h1`).textContent = localStorage.getItem("kepada");
+window.onload = function () {
+    const hash = window.location.hash.substring(1);
+    if (hash) {
+        try {
+            const decoded = atob(hash);
+            localStorage.setItem("kepada", decoded);
+            console.log("Hasil decode:", decoded);
+            window.location.hash = "";
+            document.querySelector(`h1`).textContent = decoded;
+        } catch (e) {
+            console.error("Hash bukan base64 valid:", e);
+            document.querySelector(`h1`).textContent = "";
+        }
     } else {
-        console.log("Tidak ada hash di URL.");
-        document.querySelector(`h1`).textContent = "";
-    }
-}
-
-let interval2 = setInterval(() => {
-    const kepada = localStorage.getItem("kepada"); 
-    if (kepada) {
-        document.querySelector(`h1`).textContent = kepada;
-        if (document.querySelector(`h1`).textContent === kepada) {
-            clearInterval(interval2);
+        if (localStorage.getItem("kepada")) {
+            console.log("dapat.", localStorage);
+            document.querySelector(`h1`).textContent = localStorage.getItem("kepada");
+        } else {
+            console.log("Tidak ada hash di URL.");
+            document.querySelector(`h1`).textContent = "";
         }
     }
-}, 100);
 
-const container = document.createElement("x");
-container.className = "et";
-for (let i = 1; i <= 50; i++) {
-    const child = document.createElement("x");
-    child.setAttribute("id", i);
-    child.setAttribute("bet", "");
-    const inner = document.createElement("x");
-    inner.setAttribute("b", "");
-    child.appendChild(inner);
-    container.appendChild(child);
-}
-document.body.appendChild(container);
+    var interval2 = setInterval(() => {
+        const kepada = localStorage.getItem("kepada");
+        if (kepada) {
+            document.querySelector(`h1`).textContent = kepada;
+            if (document.querySelector(`h1`).textContent === kepada) {
+                clearInterval(interval2);
+            }
+        }
+    }, 100);
+
+    const container = document.createElement("x");
+    container.className = "et";
+    for (let i = 1; i <= 50; i++) {
+        const child = document.createElement("x");
+        child.setAttribute("id", i);
+        child.setAttribute("bet", "");
+        const inner = document.createElement("x");
+        inner.setAttribute("b", "");
+        child.appendChild(inner);
+        container.appendChild(child);
+    }
+    document.body.appendChild(container);
+};

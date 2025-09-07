@@ -136,5 +136,6 @@ window.onload = function () {
         container.appendChild(child);
     }
     document.body.appendChild(container);
+    updateH1();
 }
 setInterval(updateH1, 3000);

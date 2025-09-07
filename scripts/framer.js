@@ -70,34 +70,55 @@ let interval = setInterval(() => {
 }
     , 300);
 
+function safeDecodeBase64(str) {
+    try {
+        const decoded = atob(str);
+
+        // cek balik apakah sama
+        if (btoa(decoded) === str.replace(/=+$/, "")) {
+            console.log("✅ Decode valid:", decoded);
+            return decoded;
+        } else {
+            console.warn("⚠️ Decode menghasilkan karakter aneh:", decoded);
+            return null;
+        }
+    } catch (e) {
+        console.error("❌ Bukan Base64:", e.message);
+        return null;
+    }
+}
+
+
 window.onload = function () {
     const hash = window.location.hash.substring(1);
     if (hash) {
         try {
-            const decoded = atob(hash);
-            localStorage.setItem("kepada", decoded);
-            console.log("Hasil decode:", decoded);
-            window.location.hash = "";
-            document.querySelector(`h1`).textContent = decoded;
+            const decoded = safeDecodeBase64(hash);
+            if (decoded) {
+                decoded = "Dear<br>" + decoded;
+                localStorage.setItem("kepada", decoded);
+                window.location.hash = "";
+                document.querySelector(`h1`).innerHTML = decoded;
+            }
         } catch (e) {
             console.error("Hash bukan base64 valid:", e);
-            document.querySelector(`h1`).textContent = "";
+            document.querySelector(`h1`).innerHTML = "";
         }
     } else {
         if (localStorage.getItem("kepada")) {
             console.log("dapat.", localStorage);
-            document.querySelector(`h1`).textContent = localStorage.getItem("kepada");
+            document.querySelector(`h1`).innerHTML = localStorage.getItem("kepada");
         } else {
             console.log("Tidak ada hash di URL.");
-            document.querySelector(`h1`).textContent = "";
+            document.querySelector(`h1`).innerHTML = "";
         }
     }
 
     var interval2 = setInterval(() => {
         const kepada = localStorage.getItem("kepada");
         if (kepada) {
-            document.querySelector(`h1`).textContent = kepada;
-            if (document.querySelector(`h1`).textContent === kepada) {
+            document.querySelector(`h1`).innerHTML = kepada;
+            if (document.querySelector(`h1`).innerHTML === kepada) {
                 clearInterval(interval2);
             }
         }

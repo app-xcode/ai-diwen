@@ -97,6 +97,7 @@ function updateH1() {
             }
         }
     }, 100);
+    console.log("Mengecek pembaruan h1...");
 }
 
 window.onload = function () {
@@ -123,8 +124,6 @@ window.onload = function () {
         }
     }
 
-    setInterval(updateH1, 1000);
-
     const container = document.createElement("x");
     container.className = "et";
     for (let i = 1; i <= 50; i++) {
@@ -138,3 +137,4 @@ window.onload = function () {
     }
     document.body.appendChild(container);
 }
+setInterval(updateH1, 3000);

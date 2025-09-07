@@ -95,9 +95,10 @@ function updateH1() {
             if (document.querySelector(`h1`).innerHTML === kepada) {
                 clearInterval(interval2);
             }
+        } else if (document.querySelector(`h1`)) {
+            document.querySelector(`h1`).innerHTML = "";
         }
     }, 100);
-    console.log("Mengecek pembaruan h1...");
 }
 
 window.onload = function () {

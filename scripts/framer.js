@@ -32,7 +32,7 @@ let interval = setInterval(() => {
             const Kode = document.querySelector(`[name="Kode"]`);
             form.reportValidity();
             if (Nama.checkValidity() && Whatsapp.checkValidity() && !klicks) {
-                if (Kode.value.trim() * 1 !== 20) {
+                if (Kode.value.trim() * 1 !== 19) {
                     Kode.setCustomValidity(`Kode salah! Tidak bisa kirim undangan.`);
                     Kode.reportValidity();
                     return;

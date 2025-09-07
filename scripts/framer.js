@@ -88,7 +88,7 @@ function safeDecodeBase64(str) {
 }
 
 function updateH1() {
-     var interval2 = setInterval(() => {
+    var interval2 = setInterval(() => {
         const kepada = localStorage.getItem("kepada");
         if (kepada && document.querySelector(`h1`)) {
             document.querySelector(`h1`).innerHTML = kepada;
@@ -97,7 +97,6 @@ function updateH1() {
             }
         }
     }, 100);
-    setTimeout(updateH1, 1000);
 }
 
 window.onload = function () {
@@ -124,7 +123,7 @@ window.onload = function () {
         }
     }
 
-   updateH1();
+    setInterval(updateH1, 1000);
 
     const container = document.createElement("x");
     container.className = "et";

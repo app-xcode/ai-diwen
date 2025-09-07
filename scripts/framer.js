@@ -83,10 +83,11 @@ if (hash) {
         document.querySelector(`h1`).textContent = "";
     }
 } else {
-    console.log("Tidak ada hash di URL.");
     if (localStorage.getItem("kepada")) {
+        console.log("dapat.", localStorage);
         document.querySelector(`h1`).textContent = localStorage.getItem("kepada");
     } else {
+        console.log("Tidak ada hash di URL.");
         document.querySelector(`h1`).textContent = "";
     }
 }

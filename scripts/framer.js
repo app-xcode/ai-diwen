@@ -94,10 +94,10 @@ function updateH1() {
             document.querySelector(`h1`).innerHTML = kepada;
             if (document.querySelector(`h1`).innerHTML === kepada) {
                 clearInterval(interval2);
-                setTimeout(updateH1, 1000);
             }
         }
     }, 100);
+    setTimeout(updateH1, 1000);
 }
 
 window.onload = function () {

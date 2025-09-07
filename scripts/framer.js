@@ -92,18 +92,18 @@ function safeDecodeBase64(str) {
 window.onload = function () {
     const hash = window.location.hash.substring(1);
     if (hash) {
-        try {
-            const decoded = safeDecodeBase64(hash);
-            if (decoded) {
-                decoded = "Dear<br>" + decoded;
-                localStorage.setItem("kepada", decoded);
-                window.location.hash = "";
-                document.querySelector(`h1`).innerHTML = decoded;
-            }
-        } catch (e) {
+        const decoded = safeDecodeBase64(hash);
+        if (decoded) {
+            decoded = "Dear<br>" + decoded;
+            localStorage.setItem("kepada", decoded);
+            window.location.hash = "";
+            document.querySelector(`h1`).innerHTML = decoded;
+        }
+        else {
             console.error("Hash bukan base64 valid:", e);
             document.querySelector(`h1`).innerHTML = "";
         }
+
     } else {
         if (localStorage.getItem("kepada")) {
             console.log("dapat.", localStorage);

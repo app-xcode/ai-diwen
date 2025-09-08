@@ -10,12 +10,12 @@ document.onclick = function () {
     }
 }
     ;
-document.onmousemove = function () {
-    if (!playng) {
-        audiox[0].play();
-    }
-}
-    ;
+// document.onmousemove = function () {
+//     if (!playng) {
+//         audiox[0].play();
+//     }
+// }
+//     ;
 var klicks = false;
 var al = 1;
 let interval = setInterval(() => {

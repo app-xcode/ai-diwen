@@ -160,7 +160,7 @@ function resetIdleTimer() {
                 if(location.href.includes('in-6')){
                     kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6'];
                 }
-                if(a.href != location.href && kembali.indexOf(a.href) == -1 && playng){
+                if(a.href != location.href && kembali.indexOf(a.href) == -1){
                     kembali[2] = location.href;
                     a.click();
                     hitung = 0;

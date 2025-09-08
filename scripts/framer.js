@@ -160,7 +160,7 @@ function resetIdleTimer() {
                 if(location.href.includes('in-6')){
                     kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6'];
                 }
-                if(a.href != location.href && kembali.indexOf(a.href) == -1){
+                if(a.href != location.href && kembali.indexOf(a.href) == -1 && playng){
                     kembali[2] = location.href;
                     a.click();
                     hitung = 0;
@@ -180,7 +180,7 @@ function resetIdleTimer() {
 }
 
 // event yang dianggap user aktif
-["mousemove", "keydown", "mousedown", "touchstart", "scroll"].forEach(evt => {
+["mousemove", "keydown", "mousedown", "touchstart", "scroll", "click"].forEach(evt => {
     window.addEventListener(evt, resetIdleTimer, false);
 });
 

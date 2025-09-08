@@ -172,7 +172,7 @@ function resetIdleTimer() {
             if(hitung>2){
                   kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6'];
             }
-            console.log("User sudah idle lebih dari " + hitung + " detik");
+            // console.log("User sudah idle lebih dari " + hitung + " detik");
         }
         setTimeout(resetIdleTimer, idleLimit * 1000);
     }, idleLimit * 1000);

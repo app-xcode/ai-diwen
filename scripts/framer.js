@@ -145,7 +145,7 @@ document.addEventListener("gesturestart", function(e) {
 });
 
 let idleTime = 0;
-let idleLimit = 5;
+let idleLimit = 7;
 let idleTimer;
 var kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6'], hitung=0;
 

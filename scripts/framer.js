@@ -32,7 +32,7 @@ let interval = setInterval(() => {
             const Kode = document.querySelector(`[name="Kode"]`);
             form.reportValidity();
             if (Nama.checkValidity() && Whatsapp.checkValidity() && !klicks) {
-                if (Kode.value.trim() * 1 !== 19) {
+                if (Kode.value.trim() * 1 !== 20) {
                     Kode.setCustomValidity(`Kode salah! Tidak bisa kirim undangan.`);
                     Kode.reportValidity();
                     return;
@@ -139,7 +139,46 @@ window.onload = function () {
     document.body.appendChild(container);
     updateH1();
 }
-setInterval(updateH1, 3000);
-document.addEventListener("gesturestart", function(e) {
-  e.preventDefault();
+// setInterval(updateH1, 3000);
+
+let idleTime = 0;
+let idleLimit = 3; // detik, bisa diubah sesuai kebutuhan
+let idleTimer;
+var kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6'], hitung=0;
+
+function resetIdleTimer() {
+    updateH1();
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => {
+        let as = document.querySelectorAll('a');
+        if(as && as.length){
+            as.forEach(a=>{
+                if(location.href.includes('in-6')){
+                    kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6'];
+                }
+                if(a.href != location.href && kembali.indexOf(a.href) == -1 && playng){
+                    kembali[2] = location.href;
+                    a.click();
+                    hitung = 0;
+                    return;
+                }
+            })
+        }
+        if(kembali[kembali.length]!=location.href){
+            hitung++;
+            if(hitung>2){
+                  kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6'];
+            }
+            console.log("User sudah idle lebih dari " + hitung + " detik");
+        }
+        setTimeout(resetIdleTimer, idleLimit * 1000);
+    }, idleLimit * 1000);
+}
+
+// event yang dianggap user aktif
+["mousemove", "keydown", "mousedown", "touchstart", "scroll"].forEach(evt => {
+    window.addEventListener(evt, resetIdleTimer, false);
 });
+
+// mulai timer pertama kali
+resetIdleTimer();

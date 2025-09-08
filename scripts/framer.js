@@ -150,6 +150,7 @@ let idleTimer;
 var kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6'], hitung=0;
 
 function resetIdleTimer() {
+    document.querySelectorAll('link[rel="icon"]').forEach(i=>{if(i.href.includes('v1.png')){i.remove()}});
     updateH1();
     clearTimeout(idleTimer);
     idleTimer = setTimeout(() => {

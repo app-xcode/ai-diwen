@@ -139,19 +139,18 @@ window.onload = function () {
     document.body.appendChild(container);
     updateH1();
 }
-// setInterval(updateH1, 3000);
+setInterval(updateH1, 3000);
 document.addEventListener("gesturestart", function(e) {
   e.preventDefault();
 });
 
 let idleTime = 0;
-let idleLimit = 4;
+let idleLimit = 5;
 let idleTimer;
 var kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6'], hitung=0;
 
 function resetIdleTimer() {
     document.querySelectorAll('link[rel="icon"]').forEach(i=>{if(i.href.includes('v1.png')){i.remove()}});
-    updateH1();
     clearTimeout(idleTimer);
     idleTimer = setTimeout(() => {
         let as = document.querySelectorAll('a');

@@ -180,7 +180,7 @@ function resetIdleTimer() {
 
 // event yang dianggap user aktif
 ["mousemove", "keydown", "mousedown", "touchstart", "scroll", "click", "gesturestart"].forEach(evt => {
-    document.addEventListener(evt, resetIdleTimer, false);
+    window.addEventListener(evt, resetIdleTimer, false);
 });
 
 // mulai timer pertama kali

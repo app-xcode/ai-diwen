@@ -147,7 +147,7 @@ document.addEventListener("gesturestart", function(e) {
 let idleTime = 0;
 let idleLimit = 7;
 let idleTimer;
-var kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6'], hitung=0;
+var kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6','https://maps.app.goo.gl/7JUbLhkWwVFKpyBNA'], hitung=0;
 
 function resetIdleTimer() {
     document.querySelectorAll('link[rel="icon"]').forEach(i=>{if(i.href.includes('v1.png')){i.remove()}});
@@ -157,10 +157,10 @@ function resetIdleTimer() {
         if(as && as.length){
             as.forEach(a=>{
                 if(location.href.includes('in-6')){
-                    kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6'];
+                    kembali.splice(3, 1);
                 }
                 if(a.href != location.href && kembali.indexOf(a.href) == -1 && playng){
-                    kembali[2] = location.href;
+                    kembali[3] = location.href;
                     a.click();
                     hitung = 0;
                     return;
@@ -170,7 +170,7 @@ function resetIdleTimer() {
         if(kembali[kembali.length]!=location.href){
             hitung++;
             if(hitung>2){
-                  kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6'];
+                  kembali.splice(3, 1);
             }
             // console.log("User sudah idle lebih dari " + hitung + " detik");
         }

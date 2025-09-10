@@ -51,7 +51,7 @@ let interval = setInterval(() => {
                 const encodedNama = btoa(Nama.value.trim()).replace(/=/g, ``)
                     , undanganUrl = `https://mordi-yumi.framer.website/#${encodedNama}`
                     , nomor = `62` + Whatsapp.value.trim().replace(/^0|^\+62|^62|\+|\-| /g, ``)
-                    , pesan = `Dear ${Nama.value.trim()},\n\nDengan segala hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir pada acara pernikahan (Kenoto) Mordi Kain Noepnanu, S.Kep., Ns & Yumi E.S. Uly Dadi, S.Pd., yang akan diselenggarakan pada Selasa, 09 September 2025 di Desa Bolua Kecamatan Raijua, Nusa Tenggara Timur.\n\nMerupakan sukacita bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu bagi kedua mempelai.\n\nBerikut link undangannya:\n${undanganUrl}`;
+                    , pesan = `Dear ${Nama.value.trim()},\n\nDengan segala hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir pada acara pernikahan Mordi Kain Noepnanu, S.Kep., Ns & Yumi E.S. Uly Dadi, S.Pd., yang akan diselenggarakan pada Jumat, 19 September 2025 di Desa Tunbaun, Kec. Amarasi Barat, Kab. Kupang, Nusa Tenggara Timur.\n\nMerupakan sukacita bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu bagi kedua mempelai.\n\nBerikut link undangannya:\n${undanganUrl}`;
                 waLink = `https://api.Whatsapp.com/send?phone=${nomor}&text=${encodeURIComponent(pesan)}`;
                 const a = document.createElement(`a`);
                 a.href = waLink;

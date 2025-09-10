@@ -147,7 +147,7 @@ document.addEventListener("gesturestart", function(e) {
 let idleTime = 0;
 let idleLimit = 7;
 let idleTimer;
-var kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6','https://maps.app.goo.gl/7JUbLhkWwVFKpyBNA'], hitung=0;
+var kembali=['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnrSEe6','https://maps.app.goo.gl/7JUbLhkWwVFKpyBNA','https://maps.app.goo.gl/nikbpob4jHevVZmA6'], hitung=0;
 
 function resetIdleTimer() {
     document.querySelectorAll('link[rel="icon"]').forEach(i=>{if(i.href.includes('v1.png')){i.remove()}});

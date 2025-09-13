@@ -185,3 +185,22 @@ function resetIdleTimer() {
 
 // mulai timer pertama kali
 resetIdleTimer();
+
+document.addEventListener('click', function (e) {
+    if (e.target && e.target.innerText == 'Kirim') {
+        const form = document.querySelector(`form`);
+        if (form) {
+            const button = form.querySelector(`[type="submit"]`);
+            const span = button.querySelector(`span`);
+            const comment = form.querySelector(`#comment`);
+            if (comment) {
+                span.textContent = 'Ulang';
+            }
+        }
+    }
+    else if (e.target && e.target.innerText == 'Ulang') {
+        location.reload();
+    }else{
+        console.log(e)
+    }
+})

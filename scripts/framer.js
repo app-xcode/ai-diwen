@@ -154,7 +154,7 @@ function resetIdleTimer() {
     clearTimeout(idleTimer);
     idleTimer = setTimeout(() => {
         let as = document.querySelectorAll('a');
-        if (as && as.length) {
+        if (as && as.length && location.href.includes('in-8')) {
             as.forEach(a => {
                 if (location.href.includes('in-6')) {
                     kembali.splice(3, 1);
@@ -167,7 +167,7 @@ function resetIdleTimer() {
                 }
             })
         }
-        if (kembali[kembali.length] != location.href) {
+        if (kembali[kembali.length] != location.href && location.href.includes('in-8')) {
             hitung++;
             if (hitung > 2) {
                 kembali.splice(3, 1);
@@ -185,26 +185,3 @@ function resetIdleTimer() {
 
 // mulai timer pertama kali
 resetIdleTimer();
-
-document.addEventListener('click', function (e) {
-    const form = document.querySelector(`form`);
-    if (form) {
-        const button = form.querySelector(`[type="submit"]`);
-        const span = button.querySelector(`span`);
-        const comment = form.querySelector(`#comment`);
-        const name = form.querySelector(`#name`);
-        if (e.target && e.target.innerText == 'Kirim') {
-            if (comment) {
-                span.textContent = 'Batal';
-            }
-        }
-        else if (e.target && e.target.innerText == 'Batal') {
-            if (comment) {
-                comment.value = '';
-                name.value = '';
-                span.textContent = 'Kirim';
-            }
-        }
-    }
-})
-// clearInterval(timeForm);

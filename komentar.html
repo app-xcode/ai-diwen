@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komentar</title>
+</head>
+
+<body>
+    <style>
+        *{
+             box-sizing: border-box;
+        }
+        body {
+            font-family: sans-serif;
+            background: transparent;
+            color: #333;
+        }
+
+        .form {
+            display: block;
+            margin-bottom: 15px;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .form input,
+        .form textarea,
+        .form button {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            width: 100%;
+        }
+        
+        .form textarea {
+            resize: none;
+            overflow: hidden;
+            height: fit-content;
+        }
+        
+        .form textarea,
+        .form input {
+            outline: none;
+            margin-bottom: 10px;
+        }
+        
+        .form button {
+            background: #444;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .form button:hover {
+            background: #222;
+        }
+
+
+         .form button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            background: #444;
+            color: white;
+            cursor: pointer;
+        }
+
+        .komen {
+            margin-bottom: 3px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+        }
+
+        .user img {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user .nama {
+            font-weight: bold;
+            color: #000;
+            margin-left: 10px;
+            font-size: 12px;
+        }
+
+        .user .waktu {
+            font-weight: lighter;
+            color: #CF7C00;
+            margin-left: 10px;
+            font-size: 10px;
+        }
+
+        .pesan {
+            margin-left: 2rem;
+            font-size: 12px;
+        }
+
+        .area-komen {
+            overflow-y: auto;
+            height: auto;
+            max-height: 55vh;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .wrap {
+            width: 100%;
+            padding: 5px
+        }
+
+        .text-center {
+            text-align: center;
+        }
+        
+    </style>
+    <div class="wrap">
+        <form id="formKomentar" class="form">
+            <input type="text" name="nama" placeholder="Nama" required>
+            <textarea rows="1" type="text" name="pesan" placeholder="Tulis Ucapan..." required oninput="this.style.height = this.scrollHeight + 'px';"></textarea>
+            <button type="submit">Kirim</button>
+        </form>
+        <div id="komentar" class="area-komen"></div>
+    </div>
+    <script>
+        async function loadKomentar() { try { const res = await fetch("https://brimvitas.bri-cabang-soe.com/vendor/test/komentar.php"); const data = await res.json(); const komentarList = Array.isArray(data) ? data : []; if (komentarList.length) { document.getElementById("komentar").innerHTML = komentarList.map(k => ` <div class="komen"><div class="user"><img src="https://framer-university.boringavatars.dev/api/avatar?variant=marble&square&name=${k.nama}" width="20" style="border-radius:50%"><b class="nama">${k.nama}</b><small style="color:#CF7C00" class="waktu">${k.waktu}</small></div><div class="pesan">${k.pesan}</div></div>`).join(""); } else { document.getElementById("komentar").innerHTML = "<p class='text-center'>Belum ada ucapan.</p>"; } } catch (err) { console.error("Gagal load komentar:", err); document.getElementById("komentar").innerHTML = "<p class='text-center'>Gagal memuat ucapan.</p>"; } } document.getElementById("formKomentar").addEventListener("submit", async e => { e.preventDefault(); const formData = new FormData(e.target); const data = { nama: formData.get("nama"), pesan: formData.get("pesan") }; await fetch("https://brimvitas.bri-cabang-soe.com/vendor/test/komentar.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) }); e.target.reset(); loadKomentar(); }); loadKomentar();
+    </script>
+
+</body>
+
+</html>

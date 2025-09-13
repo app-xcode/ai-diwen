@@ -194,12 +194,12 @@ document.addEventListener('click', function (e) {
             const span = button.querySelector(`span`);
             const comment = form.querySelector(`#comment`);
             if (comment) {
-                span.textContent = 'Ulang';
+                span.textContent = 'Batal';
             }
         }
     }
-    else if (e.target && e.target.innerText == 'Ulang') {
-        location.reload();
+    else if (e.target && e.target.innerText == 'Batal') {
+        location.href='/in-7';
     }else{
         console.log(e)
     }

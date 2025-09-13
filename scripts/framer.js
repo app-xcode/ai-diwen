@@ -154,7 +154,7 @@ function resetIdleTimer() {
     clearTimeout(idleTimer);
     idleTimer = setTimeout(() => {
         let as = document.querySelectorAll('a');
-        if (as && as.length && location.href.includes('in-8')) {
+        if (as && as.length && !location.href.includes('in-8')) {
             as.forEach(a => {
                 if (location.href.includes('in-6')) {
                     kembali.splice(3, 1);
@@ -167,7 +167,7 @@ function resetIdleTimer() {
                 }
             })
         }
-        if (kembali[kembali.length] != location.href && location.href.includes('in-8')) {
+        if (kembali[kembali.length] != location.href && !location.href.includes('in-8')) {
             hitung++;
             if (hitung > 2) {
                 kembali.splice(3, 1);

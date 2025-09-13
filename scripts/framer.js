@@ -187,20 +187,22 @@ function resetIdleTimer() {
 resetIdleTimer();
 
 document.addEventListener('click', function (e) {
+    if (form) {
+        const button = form.querySelector(`[type="submit"]`);
+        const span = button.querySelector(`span`);
+        const comment = form.querySelector(`#comment`);
+        const name = form.querySelector(`#name`);
+    }
     if (e.target && e.target.innerText == 'Kirim') {
         const form = document.querySelector(`form`);
-        if (form) {
-            const button = form.querySelector(`[type="submit"]`);
-            const span = button.querySelector(`span`);
-            const comment = form.querySelector(`#comment`);
-            if (comment) {
-                span.textContent = 'Batal';
-            }
+        if (comment) {
+            span.textContent = 'Batal';
         }
     }
     else if (e.target && e.target.innerText == 'Batal') {
-        location.href='/in-7';
-    }else{
-        console.log(e)
+        form.reset();
+        if (comment) {
+            span.textContent = 'Kirim';
+        }
     }
 })

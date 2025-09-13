@@ -192,6 +192,7 @@ document.addEventListener('click', function (e) {
         const button = form.querySelector(`[type="submit"]`);
         const span = button.querySelector(`span`);
         const comment = form.querySelector(`#comment`);
+        const name = form.querySelector(`#name`);
         if (e.target && e.target.innerText == 'Kirim') {
             if (comment) {
                 span.textContent = 'Batal';
@@ -199,7 +200,8 @@ document.addEventListener('click', function (e) {
         }
         else if (e.target && e.target.innerText == 'Batal') {
             if (comment) {
-                form.reset();
+                comment.value = '';
+                name.value = '';
                 span.textContent = 'Kirim';
             }
         }

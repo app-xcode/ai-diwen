@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesmen Formatif IPAS - Siklus Hidup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .pulse-animation { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-green-50 min-h-screen">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-blue-600 to-green-600 text-white p-6 shadow-lg">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-2xl font-bold text-center">🌱 Asesmen Formatif IPAS Kelas 3A</h1>
+            <p class="text-center mt-2 text-blue-100">SDN Tuak Daun Merah - Siklus Hidup Manusia dan Hewan</p>
+            <p class="text-center text-sm text-blue-100">Guru: Ibu Edita Rahayu</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="max-w-4xl mx-auto p-6">
+        <!-- Login Screen -->
+        <div id="loginScreen" class="fade-in">
+            <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
+                <div class="text-6xl mb-6">👋</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Selamat Datang!</h2>
+                <p class="text-gray-600 mb-6">Pilih nama kamu untuk memulai asesmen</p>
+                
+                <select id="studentSelect" class="w-full max-w-md mx-auto p-4 border-2 border-blue-300 rounded-xl text-lg focus:border-blue-500 focus:outline-none">
+                    <option value="">-- Pilih Nama Siswa --</option>
+                    <option value="NADELLE DWI ALEXA NDEO">NADELLE DWI ALEXA NDEO</option>
+                    <option value="AHALINAT AMASAT KAMLASI">AHALINAT AMASAT KAMLASI</option>
+                    <option value="ALVARO MORATA DJARA">ALVARO MORATA DJARA</option>
+                    <option value="ANGEL RIANI KANDOLA">ANGEL RIANI KANDOLA</option>
+                    <option value="ARJUNTO EDISON LIU">ARJUNTO EDISON LIU</option>
+                    <option value="ARYS DE BRITO KARTIBA">ARYS DE BRITO KARTIBA</option>
+                    <option value="AUDREY ANGGELICA SUTRISNO">AUDREY ANGGELICA SUTRISNO</option>
+                    <option value="AURELIA LAVANYA WAY NUKA">AURELIA LAVANYA WAY NUKA</option>
+                    <option value="AURISTELA ZILVANIA PAU ROHI">AURISTELA ZILVANIA PAU ROHI</option>
+                    <option value="AURORA YOSARANY PANDUWAL">AURORA YOSARANY PANDUWAL</option>
+                    <option value="BRIAN CARLOS BAITANU">BRIAN CARLOS BAITANU</option>
+                    <option value="JIMI ILLU NANGGI">JIMI ILLU NANGGI</option>
+                    <option value="JUNIOR VALENTINHO LEONARD MBA'U">JUNIOR VALENTINHO LEONARD MBA'U</option>
+                    <option value="KEVIN NATALINO KUNE">KEVIN NATALINO KUNE</option>
+                    <option value="KEYLA PUTRI ELLODEA">KEYLA PUTRI ELLODEA</option>
+                    <option value="KHANSA RAHMAWATI DENGGA">KHANSA RAHMAWATI DENGGA</option>
+                    <option value="KIANA ADELIA ADU">KIANA ADELIA ADU</option>
+                    <option value="LEDY PINGA">LEDY PINGA</option>
+                    <option value="LUSIANA SEYRA NEVRANDA NAISOKO">LUSIANA SEYRA NEVRANDA NAISOKO</option>
+                    <option value="MARGARETHA LUISA OLIVA MA'U">MARGARETHA LUISA OLIVA MA'U</option>
+                    <option value="MARIA BERTA ROSFINA KOTA SIKU">MARIA BERTA ROSFINA KOTA SIKU</option>
+                    <option value="MEISKA SARINA NAITNAFA">MEISKA SARINA NAITNAFA</option>
+                    <option value="SEPTIANO DENUNO BERNADUS MBUIK">SEPTIANO DENUNO BERNADUS MBUIK</option>
+                </select>
+                
+                <button id="startBtn" class="mt-6 bg-gradient-to-r from-blue-500 to-green-500 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-blue-600 hover:to-green-600 transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    🚀 Mulai Asesmen
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quizScreen" class="hidden">
+            <!-- Timer and Progress -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-4">
+                        <div class="text-2xl">⏰</div>
+                        <div>
+                            <div class="text-sm text-gray-600">Waktu Tersisa</div>
+                            <div id="timer" class="text-2xl font-bold text-red-500">10:00</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-600">Soal</div>
+                        <div id="questionCounter" class="text-2xl font-bold text-blue-600">1/15</div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="bg-gray-200 rounded-full h-3">
+                        <div id="progressBar" class="bg-gradient-to-r from-blue-500 to-green-500 h-3 rounded-full transition-all duration-300" style="width: 6.67%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div id="questionCard" class="bg-white rounded-2xl shadow-xl p-8 fade-in">
+                <div id="questionContent"></div>
+                <div id="optionsContainer" class="mt-6 space-y-4"></div>
+                <button id="nextBtn" class="mt-8 bg-gradient-to-r from-blue-500 to-green-500 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-blue-600 hover:to-green-600 transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Lanjut ➡️
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="hidden">
+            <div class="bg-white rounded-2xl shadow-xl p-8 text-center fade-in">
+                <div id="resultIcon" class="text-8xl mb-6">🎉</div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Selamat!</h2>
+                <div id="studentResult" class="mb-6"></div>
+                <div id="scoreDetails" class="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-6 mb-6"></div>
+                <button id="viewRankingBtn" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-200 mr-4">
+                    📊 Lihat Peringkat
+                </button>
+                <button id="restartBtn" class="bg-gradient-to-r from-blue-500 to-green-500 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-blue-600 hover:to-green-600 transform hover:scale-105 transition-all duration-200">
+                    🔄 Mulai Lagi
+                </button>
+            </div>
+        </div>
+
+        <!-- Ranking Screen -->
+        <div id="rankingScreen" class="hidden">
+            <div class="bg-white rounded-2xl shadow-xl p-8 fade-in">
+                <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">🏆 Peringkat Kelas 3A</h2>
+                <div id="rankingList" class="space-y-4"></div>
+                <div class="text-center mt-8">
+                    <button id="backToResultsBtn" class="bg-gradient-to-r from-blue-500 to-green-500 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-blue-600 hover:to-green-600 transform hover:scale-105 transition-all duration-200">
+                        ⬅️ Kembali ke Hasil
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz data with different learning styles
+        const questions = [
+            {
+                type: 'visual',
+                question: 'Perhatikan gambar siklus hidup manusia berikut. Urutan yang benar adalah:',
+                visual: '👶 → 🧒 → 👦 → 👨 → 👴',
+                options: ['Bayi → Anak-anak → Remaja → Dewasa → Lansia', 'Anak-anak → Bayi → Remaja → Dewasa → Lansia', 'Bayi → Remaja → Anak-anak → Dewasa → Lansia', 'Remaja → Bayi → Anak-anak → Dewasa → Lansia'],
+                correct: 0
+            },
+            {
+                type: 'auditory',
+                question: 'Dengarkan dengan baik! Jika seorang bayi lahir pada tahun 2020, pada tahun 2025 ia akan berusia...',
+                options: ['3 tahun', '4 tahun', '5 tahun', '6 tahun'],
+                correct: 2
+            },
+            {
+                type: 'kinesthetic',
+                question: 'Praktikkan gerakan ini! Bagaimana cara bayi belajar berjalan?',
+                activity: 'Gerakan: Merangkak → Berdiri → Melangkah',
+                options: ['Langsung berdiri dan berjalan', 'Merangkak dulu, lalu berdiri, kemudian melangkah', 'Melompat dulu baru berjalan', 'Berlari dulu baru berjalan'],
+                correct: 1
+            },
+            {
+                type: 'visual',
+                question: 'Lihat siklus hidup ayam berikut:',
+                visual: '🥚 → 🐣 → 🐤 → 🐓',
+                options: ['Telur → Anak ayam → Ayam muda → Ayam dewasa', 'Anak ayam → Telur → Ayam muda → Ayam dewasa', 'Telur → Ayam dewasa → Anak ayam → Ayam muda', 'Ayam muda → Telur → Anak ayam → Ayam dewasa'],
+                correct: 0
+            },
+            {
+                type: 'auditory',
+                question: 'Dengarkan baik-baik! Berapa lama ayam mengerami telurnya?',
+                options: ['15 hari', '18 hari', '21 hari', '25 hari'],
+                correct: 2
+            },
+            {
+                type: 'kinesthetic',
+                question: 'Cobalah gerakan ini! Bagaimana anak ayam keluar dari telur?',
+                activity: 'Gerakan: Mematuk kulit telur dari dalam',
+                options: ['Induk ayam memecahkan telur', 'Anak ayam mematuk kulit telur dari dalam', 'Telur pecah sendiri', 'Manusia membantu memecahkan'],
+                correct: 1
+            },
+            {
+                type: 'visual',
+                question: 'Perhatikan gambar siklus hidup kucing:',
+                visual: '🤱 → 🐱 → 🐈 → 🐈‍⬛',
+                options: ['Anak kucing → Kucing muda → Kucing dewasa → Kucing tua', 'Kucing dewasa → Anak kucing → Kucing muda → Kucing tua', 'Anak kucing → Kucing dewasa → Kucing muda → Kucing tua', 'Kucing muda → Anak kucing → Kucing dewasa → Kucing tua'],
+                correct: 0
+            },
+            {
+                type: 'auditory',
+                question: 'Dengarkan pertanyaan ini! Berapa lama kucing mengandung anaknya?',
+                options: ['2 bulan', '3 bulan', '4 bulan', '5 bulan'],
+                correct: 0
+            },
+            {
+                type: 'kinesthetic',
+                question: 'Praktikkan! Bagaimana anak kucing belajar berburu?',
+                activity: 'Gerakan: Meniru gerakan induknya',
+                options: ['Langsung bisa berburu sendiri', 'Belajar dari meniru gerakan induknya', 'Diajarkan oleh kucing lain', 'Belajar dari manusia'],
+                correct: 1
+            },
+            {
+                type: 'visual',
+                question: 'Bandingkan ketiga siklus hidup ini. Mana yang memiliki tahap telur?',
+                visual: 'Manusia: 👶→👦→👨 | Ayam: 🥚→🐣→🐓 | Kucing: 🤱→🐱→🐈',
+                options: ['Manusia dan ayam', 'Hanya ayam', 'Ayam dan kucing', 'Semua hewan'],
+                correct: 1
+            },
+            {
+                type: 'auditory',
+                question: 'Dengarkan baik-baik! Apa perbedaan utama kelahiran manusia dan kucing?',
+                options: ['Manusia lahir dari telur, kucing tidak', 'Kucing lahir dari telur, manusia tidak', 'Manusia dan kucing sama-sama lahir dari perut ibu', 'Tidak ada perbedaan'],
+                correct: 2
+            },
+            {
+                type: 'kinesthetic',
+                question: 'Lakukan gerakan ini! Bagaimana bayi manusia mendapat makanan pertamanya?',
+                activity: 'Gerakan: Menyusu pada ibu',
+                options: ['Makan nasi langsung', 'Menyusu pada ibu', 'Minum air putih', 'Makan buah'],
+                correct: 1
+            },
+            {
+                type: 'visual',
+                question: 'Lihat perbedaan ini! Manakah yang tumbuh paling cepat?',
+                visual: 'Pertumbuhan dalam 1 tahun: 👶→🧒 | 🐣→🐓 | 🐱→🐈',
+                options: ['Manusia', 'Ayam', 'Kucing', 'Sama cepat'],
+                correct: 1
+            },
+            {
+                type: 'auditory',
+                question: 'Dengarkan dengan seksama! Pada usia berapa anak manusia mulai bisa berbicara?',
+                options: ['6 bulan', '1 tahun', '2 tahun', '3 tahun'],
+                correct: 1
+            },
+            {
+                type: 'kinesthetic',
+                question: 'Praktikkan perawatan ini! Apa yang harus dilakukan untuk merawat anak ayam?',
+                activity: 'Gerakan: Memberi makan dan menjaga kehangatan',
+                options: ['Dibiarkan sendiri', 'Diberi makan dan dijaga kehangatannya', 'Hanya diberi minum', 'Dipisahkan dari induknya'],
+                correct: 1
+            }
+        ];
+
+        // App state
+        let currentStudent = '';
+        let currentQuestion = 0;
+        let answers = [];
+        let startTime = null;
+        let timeLeft = 600; // 10 minutes in seconds
+        let timerInterval = null;
+        let questionStartTime = null;
+
+        // Get stored results
+        function getStoredResults() {
+            const stored = localStorage.getItem('ipasResults');
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        // Store results
+        function storeResult(result) {
+            const results = getStoredResults();
+            const existingIndex = results.findIndex(r => r.student === result.student);
+            if (existingIndex >= 0) {
+                results[existingIndex] = result;
+            } else {
+                results.push(result);
+            }
+            localStorage.setItem('ipasResults', JSON.stringify(results));
+        }
+
+        // DOM elements
+        const loginScreen = document.getElementById('loginScreen');
+        const quizScreen = document.getElementById('quizScreen');
+        const resultsScreen = document.getElementById('resultsScreen');
+        const rankingScreen = document.getElementById('rankingScreen');
+        const studentSelect = document.getElementById('studentSelect');
+        const startBtn = document.getElementById('startBtn');
+        const timer = document.getElementById('timer');
+        const questionCounter = document.getElementById('questionCounter');
+        const progressBar = document.getElementById('progressBar');
+        const questionContent = document.getElementById('questionContent');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Event listeners
+        studentSelect.addEventListener('change', function() {
+            startBtn.disabled = !this.value;
+        });
+
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', nextQuestion);
+        document.getElementById('viewRankingBtn').addEventListener('click', showRanking);
+        document.getElementById('restartBtn').addEventListener('click', restart);
+        document.getElementById('backToResultsBtn').addEventListener('click', showResults);
+
+        function startQuiz() {
+            currentStudent = studentSelect.value;
+            currentQuestion = 0;
+            answers = [];
+            startTime = new Date();
+            timeLeft = 600;
+            
+            loginScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            startTimer();
+            showQuestion();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    finishQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 60) {
+                timer.classList.add('pulse-animation');
+                timer.classList.add('text-red-600');
+            }
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            questionStartTime = new Date();
+            
+            questionCounter.textContent = `${currentQuestion + 1}/15`;
+            progressBar.style.width = `${((currentQuestion + 1) / 15) * 100}%`;
+            
+            let questionHTML = `
+                <div class="mb-6">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-gradient-to-r from-blue-500 to-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            ${question.type === 'visual' ? '👁️ Visual' : question.type === 'auditory' ? '👂 Auditori' : '🤸 Kinestetik'}
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">${question.question}</h3>
+            `;
+            
+            if (question.visual) {
+                questionHTML += `<div class="text-4xl text-center my-6 p-4 bg-gray-50 rounded-xl">${question.visual}</div>`;
+            }
+            
+            if (question.activity) {
+                questionHTML += `<div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 my-4 rounded">
+                    <p class="text-yellow-800"><strong>Aktivitas:</strong> ${question.activity}</p>
+                </div>`;
+            }
+            
+            questionHTML += '</div>';
+            questionContent.innerHTML = questionHTML;
+            
+            // Show options
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option-card bg-gray-50 hover:bg-blue-50 border-2 border-gray-200 hover:border-blue-300 rounded-xl p-4 cursor-pointer transition-all duration-200 transform hover:scale-105';
+                optionDiv.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center mr-4 text-sm font-semibold">
+                            ${String.fromCharCode(65 + index)}
+                        </div>
+                        <span class="text-gray-800">${option}</span>
+                    </div>
+                `;
+                
+                optionDiv.addEventListener('click', () => selectOption(index, optionDiv));
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            nextBtn.disabled = true;
+        }
+
+        function selectOption(index, element) {
+            // Remove previous selections
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('bg-blue-100', 'border-blue-500');
+                card.classList.add('bg-gray-50', 'border-gray-200');
+            });
+            
+            // Highlight selected option
+            element.classList.remove('bg-gray-50', 'border-gray-200');
+            element.classList.add('bg-blue-100', 'border-blue-500');
+            
+            // Record answer with timing
+            const questionEndTime = new Date();
+            const timeSpent = (questionEndTime - questionStartTime) / 1000;
+            
+            answers[currentQuestion] = {
+                questionIndex: currentQuestion,
+                selectedAnswer: index,
+                correctAnswer: questions[currentQuestion].correct,
+                isCorrect: index === questions[currentQuestion].correct,
+                timeSpent: timeSpent,
+                learningStyle: questions[currentQuestion].type
+            };
+            
+            nextBtn.disabled = false;
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion >= questions.length) {
+                finishQuiz();
+            } else {
+                showQuestion();
+            }
+        }
+
+        function finishQuiz() {
+            clearInterval(timerInterval);
+            
+            const endTime = new Date();
+            const totalTime = (endTime - startTime) / 1000;
+            const correctAnswers = answers.filter(a => a.isCorrect).length;
+            const score = Math.round((correctAnswers / questions.length) * 100);
+            
+            // Calculate learning style performance
+            const stylePerformance = {
+                visual: { correct: 0, total: 0 },
+                auditory: { correct: 0, total: 0 },
+                kinesthetic: { correct: 0, total: 0 }
+            };
+            
+            answers.forEach(answer => {
+                const style = answer.learningStyle;
+                stylePerformance[style].total++;
+                if (answer.isCorrect) {
+                    stylePerformance[style].correct++;
+                }
+            });
+
+            const result = {
+                student: currentStudent,
+                score: score,
+                correctAnswers: correctAnswers,
+                totalQuestions: questions.length,
+                totalTime: totalTime,
+                completedAt: new Date().toISOString(),
+                answers: answers,
+                stylePerformance: stylePerformance
+            };
+            
+            storeResult(result);
+            showResults(result);
+        }
+
+        function showResults(result = null) {
+            if (!result) {
+                const results = getStoredResults();
+                result = results.find(r => r.student === currentStudent);
+            }
+            
+            quizScreen.classList.add('hidden');
+            rankingScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            
+            const resultIcon = document.getElementById('resultIcon');
+            const studentResult = document.getElementById('studentResult');
+            const scoreDetails = document.getElementById('scoreDetails');
+            
+            // Set icon based on score
+            if (result.score >= 90) {
+                resultIcon.textContent = '🏆';
+            } else if (result.score >= 80) {
+                resultIcon.textContent = '🥇';
+            } else if (result.score >= 70) {
+                resultIcon.textContent = '🥈';
+            } else if (result.score >= 60) {
+                resultIcon.textContent = '🥉';
+            } else {
+                resultIcon.textContent = '📚';
+            }
+            
+            studentResult.innerHTML = `
+                <h3 class="text-xl font-semibold text-gray-800">${result.student}</h3>
+                <p class="text-gray-600">Kamu telah menyelesaikan asesmen!</p>
+            `;
+            
+            const minutes = Math.floor(result.totalTime / 60);
+            const seconds = Math.floor(result.totalTime % 60);
+            
+            scoreDetails.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                    <div>
+                        <div class="text-3xl font-bold text-blue-600">${result.score}</div>
+                        <div class="text-sm text-gray-600">Nilai</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-green-600">${result.correctAnswers}/${result.totalQuestions}</div>
+                        <div class="text-sm text-gray-600">Benar</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-purple-600">${minutes}:${seconds.toString().padStart(2, '0')}</div>
+                        <div class="text-sm text-gray-600">Waktu</div>
+                    </div>
+                </div>
+                <div class="mt-6 text-left">
+                    <h4 class="font-semibold text-gray-800 mb-3">📊 Performa Gaya Belajar:</h4>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span>👁️ Visual:</span>
+                            <span class="font-semibold">${result.stylePerformance.visual.correct}/${result.stylePerformance.visual.total}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>👂 Auditori:</span>
+                            <span class="font-semibold">${result.stylePerformance.auditory.correct}/${result.stylePerformance.auditory.total}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>🤸 Kinestetik:</span>
+                            <span class="font-semibold">${result.stylePerformance.kinesthetic.correct}/${result.stylePerformance.kinesthetic.total}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showRanking() {
+            resultsScreen.classList.add('hidden');
+            rankingScreen.classList.remove('hidden');
+            
+            const results = getStoredResults();
+            
+            // Sort by score (descending) then by time (ascending)
+            results.sort((a, b) => {
+                if (b.score !== a.score) {
+                    return b.score - a.score;
+                }
+                return a.totalTime - b.totalTime;
+            });
+            
+            const rankingList = document.getElementById('rankingList');
+            rankingList.innerHTML = '';
+            
+            results.forEach((result, index) => {
+                const minutes = Math.floor(result.totalTime / 60);
+                const seconds = Math.floor(result.totalTime % 60);
+                const isCurrentStudent = result.student === currentStudent;
+                
+                const rankCard = document.createElement('div');
+                rankCard.className = `flex items-center justify-between p-4 rounded-xl border-2 ${
+                    isCurrentStudent ? 'bg-blue-50 border-blue-300' : 'bg-gray-50 border-gray-200'
+                }`;
+                
+                let medal = '';
+                if (index === 0) medal = '🥇';
+                else if (index === 1) medal = '🥈';
+                else if (index === 2) medal = '🥉';
+                else medal = `${index + 1}`;
+                
+                rankCard.innerHTML = `
+                    <div class="flex items-center space-x-4">
+                        <div class="text-2xl font-bold ${index < 3 ? '' : 'bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center text-sm'}">${medal}</div>
+                        <div>
+                            <div class="font-semibold ${isCurrentStudent ? 'text-blue-800' : 'text-gray-800'}">${result.student}</div>
+                            <div class="text-sm text-gray-600">${new Date(result.completedAt).toLocaleDateString('id-ID')}</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xl font-bold text-green-600">${result.score}</div>
+                        <div class="text-sm text-gray-600">${minutes}:${seconds.toString().padStart(2, '0')}</div>
+                    </div>
+                `;
+                
+                rankingList.appendChild(rankCard);
+            });
+        }
+
+        function restart() {
+            currentStudent = '';
+            currentQuestion = 0;
+            answers = [];
+            startTime = null;
+            timeLeft = 600;
+            
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            resultsScreen.classList.add('hidden');
+            rankingScreen.classList.add('hidden');
+            loginScreen.classList.remove('hidden');
+            
+            studentSelect.value = '';
+            startBtn.disabled = true;
+            timer.classList.remove('pulse-animation', 'text-red-600');
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9835c02de301ef6c',t:'MTc1ODU4NTUxMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

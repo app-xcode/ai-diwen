@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis: Siklus Hidup Manusia dan Hewan</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .quiz-container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        .question-box {
+            background-color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        .options-grid {
+            display: grid;
+            gap: 10px;
+        }
+        .option-button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #e0e6ea;
+            color: #2c3e50;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            text-align: left;
+        }
+        .option-button:hover:not(.disabled) {
+            background-color: #d2dae2;
+            transform: translateY(-2px);
+        }
+        .option-button.correct {
+            background-color: #2ecc71;
+            color: white;
+            animation: pulse-correct 0.5s ease-in-out;
+        }
+        .option-button.incorrect {
+            background-color: #e74c3c;
+            color: white;
+            animation: pulse-incorrect 0.5s ease-in-out;
+        }
+        @keyframes pulse-correct {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        @keyframes pulse-incorrect {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        .feedback-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-left: 5px solid #bdc3c7;
+            border-radius: 5px;
+            text-align: left;
+            display: none;
+            line-height: 1.5;
+        }
+        .feedback-box p {
+            margin: 0;
+            padding: 0.25rem 0;
+        }
+        .feedback-box .rationale {
+            font-weight: bold;
+        }
+        .next-btn {
+            margin-top: 1.5rem;
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .next-btn:hover {
+            background-color: #2980b9;
+        }
+        .disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .score-container {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Kuis: Siklus Hidup Manusia dan Hewan</h1>
+        <div class="question-box" id="question-box"></div>
+        <div class="options-grid" id="options-grid"></div>
+        <div class="feedback-box" id="feedback-box">
+            <p id="rationale-text"></p>
+            <p id="hint-text"></p>
+        </div>
+        <button class="next-btn disabled" id="next-btn">Selanjutnya</button>
+        <div class="score-container" id="score-container" style="display:none;"></div>
+    </div>
+
+    <script>
+        const quizData = {
+            "questions": [
+                {
+                    "questionNumber": 1,
+                    "question": "Urutan yang tepat untuk siklus hidup manusia adalah...",
+                    "answerOptions": [
+                        { "text": "Bayi, balita, remaja, dewasa", "rationale": "Urutan ini tidak lengkap dan tidak sesuai dengan siklus hidup manusia yang benar. Balita datang setelah bayi, tetapi sebelum anak-anak. Remaja juga datang sebelum dewasa.", "isCorrect": false },
+                        { "text": "Bayi, anak-anak, remaja, dewasa", "rationale": "Jawaban ini menyajikan urutan tahapan pertumbuhan manusia yang benar, dimulai dari bayi hingga dewasa.", "isCorrect": true },
+                        { "text": "Anak-anak, bayi, dewasa, remaja", "rationale": "Urutan ini tidak logis dan tidak benar. Tahapan kehidupan dimulai dari bayi, bukan anak-anak.", "isCorrect": false },
+                        { "text": "Dewasa, remaja, anak-anak, bayi", "rationale": "Urutan ini terbalik dari siklus kehidupan yang sebenarnya. Manusia tumbuh dari bayi menjadi dewasa, bukan sebaliknya.", "isCorrect": false }
+                    ],
+                    "hint": "Coba pikirkan tahapan pertumbuhan manusia dari lahir sampai besar."
+                },
+                {
+                    "questionNumber": 2,
+                    "question": "Manakah pernyataan yang benar tentang siklus hidup kucing?",
+                    "answerOptions": [
+                        { "text": "Kucing mengalami metamorfosis sempurna.", "rationale": "Kucing adalah mamalia dan tidak mengalami metamorfosis. Metamorfosis terjadi pada serangga dan amfibi.", "isCorrect": false },
+                        { "text": "Kucing lahir dari telur.", "rationale": "Kucing adalah mamalia yang berkembang biak dengan cara melahirkan anak, bukan bertelur.", "isCorrect": false },
+                        { "text": "Anak kucing disebut anak kucing.", "rationale": "Pernyataan ini benar, anak kucing biasa dipanggil 'anak kucing' atau 'kitten' dalam bahasa Inggris, dan memiliki banyak kemiripan dengan kucing dewasa.", "isCorrect": true },
+                        { "text": "Anak kucing tidak memiliki bulu saat lahir.", "rationale": "Anak kucing dilahirkan dengan bulu halus di tubuhnya. Rambut sangat penting untuk menjaga suhu tubuh.", "isCorrect": false }
+                    ],
+                    "hint": "Pikirkan bagaimana kucing terlahir."
+                },
+                {
+                    "questionNumber": 3,
+                    "question": "Tahapan siklus hidup ayam yang terjadi setelah telur menetas adalah...",
+                    "answerOptions": [
+                        { "text": "Telur", "rationale": "Telur adalah tahapan sebelum menetas, bukan sesudah.", "isCorrect": false },
+                        { "text": "Anak ayam", "rationale": "Setelah telur menetas, keluarlah anak ayam yang siap untuk tumbuh menjadi ayam dewasa.", "isCorrect": true },
+                        { "text": "Ayam dewasa", "rationale": "Ayam dewasa adalah tahapan terakhir dari siklus hidup ayam, bukan tahapan setelah telur menetas.", "isCorrect": false },
+                        { "text": "Ayam remaja", "rationale": "Tahapan ayam remaja datang setelah anak ayam, bukan langsung setelah telur menetas.", "isCorrect": false }
+                    ],
+                    "hint": "Apa yang keluar dari telur ayam yang baru menetas?"
+                },
+                {
+                    "questionNumber": 4,
+                    "question": "Apa nama tahapan siklus hidup manusia antara bayi dan remaja?",
+                    "answerOptions": [
+                        { "text": "Dewasa", "rationale": "Tahap dewasa datang setelah remaja, bukan di antaranya.", "isCorrect": false },
+                        { "text": "Lansia", "rationale": "Lansia adalah tahap akhir kehidupan, datang setelah dewasa.", "isCorrect": false },
+                        { "text": "Anak-anak", "rationale": "Tahap anak-anak adalah tahap yang terjadi di antara bayi dan remaja.", "isCorrect": true },
+                        { "text": "Balita", "rationale": "Balita adalah singkatan dari bawah lima tahun. Tahap ini adalah bagian dari masa bayi dan anak-anak, tetapi bukan tahap yang terpisah di antara bayi dan remaja.", "isCorrect": false }
+                    ],
+                    "hint": "Masa ini sering disebut usia sekolah."
+                },
+                {
+                    "questionNumber": 5,
+                    "question": "Ayam betina dewasa akan menghasilkan...",
+                    "answerOptions": [
+                        { "text": "Anak kucing", "rationale": "Ayam menghasilkan telur yang akan menetas menjadi anak ayam, bukan anak kucing.", "isCorrect": false },
+                        { "text": "Anak ayam", "rationale": "Anak ayam adalah hasil dari telur yang dihasilkan oleh ayam betina dewasa.", "isCorrect": true },
+                        { "text": "Telur", "rationale": "Telur adalah yang dihasilkan oleh ayam betina, tetapi telur akan menetas menjadi anak ayam yang merupakan bagian dari siklus hidup.", "isCorrect": false },
+                        { "text": "Ayam jantan", "rationale": "Ayam jantan tidak dihasilkan oleh ayam betina, melainkan ayam jantan juga hasil dari telur.", "isCorrect": false }
+                    ],
+                    "hint": "Ini adalah awal dari siklus hidup seekor ayam."
+                },
+                {
+                    "questionNumber": 6,
+                    "question": "Tahapan siklus hidup kucing yang memiliki ciri-ciri suka bermain, gesit, dan belajar berburu adalah...",
+                    "answerOptions": [
+                        { "text": "Kucing dewasa", "rationale": "Kucing dewasa lebih tenang dan sudah ahli dalam berburu.", "isCorrect": false },
+                        { "text": "Anak kucing", "rationale": "Anak kucing adalah tahapan dimana mereka sangat aktif, suka bermain, dan sedang belajar keterampilan hidup dari induknya.", "isCorrect": true },
+                        { "text": "Kucing lansia", "rationale": "Kucing lansia lebih banyak istirahat dan tidak seaktif kucing muda.", "isCorrect": false },
+                        { "text": "Anak balita", "rationale": "Balita adalah tahapan siklus hidup manusia, bukan kucing.", "isCorrect": false }
+                    ],
+                    "hint": "Pada tahap ini, kucing sedang sangat aktif dan lucu."
+                },
+                {
+                    "questionNumber": 7,
+                    "question": "Siklus hidup manusia dimulai dari...",
+                    "answerOptions": [
+                        { "text": "Anak-anak", "rationale": "Tahapan siklus hidup manusia dimulai sejak manusia lahir, bukan sejak menjadi anak-anak.", "isCorrect": false },
+                        { "text": "Remaja", "rationale": "Remaja adalah tahapan setelah anak-anak, bukan awal dari siklus hidup manusia.", "isCorrect": false },
+                        { "text": "Bayi", "rationale": "Siklus hidup manusia dimulai dari bayi, yang merupakan tahapan setelah dilahirkan.", "isCorrect": true },
+                        { "text": "Dewasa", "rationale": "Dewasa adalah tahap di mana manusia sudah sepenuhnya matang, bukan awal dari siklus hidup.", "isCorrect": false }
+                    ],
+                    "hint": "Tahapan kehidupan pertama setelah lahir."
+                },
+                {
+                    "questionNumber": 8,
+                    "question": "Telur yang dierami oleh induk ayam akan menetas menjadi...",
+                    "answerOptions": [
+                        { "text": "Ayam dewasa", "rationale": "Telur menetas menjadi anak ayam, bukan ayam dewasa.", "isCorrect": false },
+                        { "text": "Anak kucing", "rationale": "Telur ayam menetas menjadi anak ayam, bukan anak kucing.", "isCorrect": false },
+                        { "text": "Anak ayam", "rationale": "Proses penetasan telur ayam akan menghasilkan anak ayam.", "isCorrect": true },
+                        { "text": "Kecebong", "rationale": "Kecebong adalah tahapan siklus hidup katak, bukan ayam.", "isCorrect": false }
+                    ],
+                    "hint": "Apa nama bayi dari seekor ayam?"
+                },
+                {
+                    "questionNumber": 9,
+                    "question": "Apa peran manusia dewasa dalam siklus hidupnya?",
+                    "answerOptions": [
+                        { "text": "Hanya bermain dan belajar.", "rationale": "Meskipun orang dewasa masih bisa bermain dan belajar, peran utama mereka adalah bekerja, berkeluarga, dan memberikan bimbingan kepada generasi selanjutnya.", "isCorrect": false },
+                        { "text": "Mulai belajar berjalan dan berbicara.", "rationale": "Belajar berjalan dan berbicara adalah ciri khas tahapan bayi, bukan dewasa.", "isCorrect": false },
+                        { "text": "Bekerja, berkeluarga, dan memimpin.", "rationale": "Peran manusia dewasa adalah bekerja, membangun keluarga, dan memberikan bimbingan kepada generasi muda.", "isCorrect": true },
+                        { "text": "Hanya tidur.", "rationale": "Tidur adalah bagian dari kehidupan sehari-hari, tetapi bukan peran utama dari manusia dewasa.", "isCorrect": false }
+                    ],
+                    "hint": "Pikirkan apa yang orang tua atau guru lakukan setiap hari."
+                },
+                {
+                    "questionNumber": 10,
+                    "question": "Bagaimana cara kucing berkembang biak?",
+                    "answerOptions": [
+                        { "text": "Bertelur", "rationale": "Kucing adalah mamalia yang berkembang biak dengan cara melahirkan anak, bukan bertelur.", "isCorrect": false },
+                        { "text": "Melahirkan", "rationale": "Kucing adalah mamalia yang berkembang biak dengan cara melahirkan anak, bukan bertelur.", "isCorrect": true },
+                        { "text": "Membelah diri", "rationale": "Membelah diri adalah cara berkembang biak hewan bersel satu, bukan kucing.", "isCorrect": false },
+                        { "text": "Metamorfosis", "rationale": "Kucing tidak mengalami metamorfosis. Metamorfosis terjadi pada serangga dan amfibi.", "isCorrect": false }
+                    ],
+                    "hint": "Pikirkan cara berkembang biak yang sama dengan manusia."
+                },
+                {
+                    "questionNumber": 11,
+                    "question": "Apa tahapan siklus hidup ayam yang terjadi setelah anak ayam?",
+                    "answerOptions": [
+                        { "text": "Telur", "rationale": "Telur adalah tahapan sebelum anak ayam menetas, bukan setelahnya.", "isCorrect": false },
+                        { "text": "Induk ayam", "rationale": "Induk ayam adalah sebutan untuk ayam betina yang sudah dewasa, yang merupakan tahapan setelah ayam remaja.", "isCorrect": false },
+                        { "text": "Ayam remaja", "rationale": "Anak ayam akan tumbuh menjadi ayam remaja sebelum akhirnya menjadi ayam dewasa.", "isCorrect": true },
+                        { "text": "Ayam jantan", "rationale": "Ayam jantan juga melalui tahapan anak ayam dan ayam remaja, bukan tahapan setelah anak ayam.", "isCorrect": false }
+                    ],
+                    "hint": "Pada tahapan ini, anak ayam mulai tumbuh dan bulunya menjadi lebih tebal."
+                },
+                {
+                    "questionNumber": 12,
+                    "question": "Perbedaan utama antara siklus hidup manusia dan kucing adalah...",
+                    "answerOptions": [
+                        { "text": "Manusia melahirkan dan kucing bertelur.", "rationale": "Kucing juga melahirkan, sama seperti manusia.", "isCorrect": false },
+                        { "text": "Manusia memiliki masa remaja, kucing tidak.", "rationale": "Kucing juga melewati masa remaja, di mana mereka tumbuh lebih besar dan lebih mandiri.", "isCorrect": false },
+                        { "text": "Manusia memiliki tahapan lansia.", "rationale": "Baik manusia maupun kucing memiliki tahapan lansia, di mana mereka menjadi lebih tua dan kurang aktif.", "isCorrect": false },
+                        { "text": "Manusia memiliki tahapan remaja yang lebih panjang.", "rationale": "Tahapan remaja pada manusia memakan waktu lebih lama dibandingkan dengan kucing. Siklus hidup kucing umumnya lebih pendek.", "isCorrect": true }
+                    ],
+                    "hint": "Coba bandingkan durasi setiap tahap pertumbuhan keduanya."
+                },
+                {
+                    "questionNumber": 13,
+                    "question": "Siklus hidup yang melewati tahap telur adalah...",
+                    "answerOptions": [
+                        { "text": "Manusia", "rationale": "Manusia berkembang biak dengan melahirkan, bukan bertelur.", "isCorrect": false },
+                        { "text": "Kucing", "rationale": "Kucing adalah mamalia yang melahirkan anak, bukan bertelur.", "isCorrect": false },
+                        { "text": "Ayam", "rationale": "Siklus hidup ayam dimulai dari telur yang dierami induknya dan kemudian menetas.", "isCorrect": true },
+                        { "text": "Semua jawaban benar", "rationale": "Hanya ayam yang berkembang biak dengan cara bertelur dari pilihan yang diberikan.", "isCorrect": false }
+                    ],
+                    "hint": "Pikirkan hewan mana yang kamu lihat sedang mengerami telurnya."
+                },
+                {
+                    "questionNumber": 14,
+                    "question": "Ketika seekor kucing mencapai usia 1 tahun, ia sudah berada pada tahapan...",
+                    "answerOptions": [
+                        { "text": "Anak kucing", "rationale": "Kucing berusia 1 tahun dianggap dewasa, bukan lagi anak kucing.", "isCorrect": false },
+                        { "text": "Dewasa", "rationale": "Kucing dianggap dewasa secara fisik dan reproduktif ketika mereka berusia sekitar 1 tahun.", "isCorrect": true },
+                        { "text": "Remaja", "rationale": "Kucing melewati tahap remaja sebelum mencapai usia 1 tahun.", "isCorrect": false },
+                        { "text": "Lansia", "rationale": "Kucing berusia 1 tahun masih sangat muda, tidak berada di tahap lansia.", "isCorrect": false }
+                    ],
+                    "hint": "Pada usia ini, kucing sudah memiliki semua karakteristik kucing dewasa."
+                },
+                {
+                    "questionNumber": 15,
+                    "question": "Manakah tahapan siklus hidup ayam yang tidak bisa terbang?",
+                    "answerOptions": [
+                        { "text": "Ayam dewasa", "rationale": "Ayam dewasa memiliki sayap dan bisa terbang, meskipun tidak terlalu jauh.", "isCorrect": false },
+                        { "text": "Ayam jantan", "rationale": "Ayam jantan yang dewasa memiliki sayap dan bisa terbang.", "isCorrect": false },
+                        { "text": "Anak ayam", "rationale": "Anak ayam belum memiliki sayap yang kuat untuk terbang. Mereka hanya bisa mengepakkan sayapnya sedikit.", "isCorrect": true },
+                        { "text": "Ayam betina", "rationale": "Ayam betina dewasa memiliki sayap dan bisa terbang, meskipun tidak terlalu jauh.", "isCorrect": false }
+                    ],
+                    "hint": "Pikirkan ayam yang baru menetas."
+                }
+            ]
+        };
+
+        const questionBox = document.getElementById('question-box');
+        const optionsGrid = document.getElementById('options-grid');
+        const feedbackBox = document.getElementById('feedback-box');
+        const rationaleText = document.getElementById('rationale-text');
+        const hintText = document.getElementById('hint-text');
+        const nextBtn = document.getElementById('next-btn');
+        const scoreContainer = document.getElementById('score-container');
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            showQuestion();
+            nextBtn.textContent = 'Selanjutnya';
+            nextBtn.classList.add('disabled');
+            scoreContainer.style.display = 'none';
+        }
+
+        function showQuestion() {
+            if (currentQuestionIndex >= quizData.questions.length) {
+                showScore();
+                return;
+            }
+
+            const currentQuestion = quizData.questions[currentQuestionIndex];
+            questionBox.textContent = `${currentQuestion.questionNumber}. ${currentQuestion.question}`;
+            optionsGrid.innerHTML = '';
+            feedbackBox.style.display = 'none';
+            nextBtn.classList.add('disabled');
+            answered = false;
+
+            currentQuestion.answerOptions.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.classList.add('option-button');
+                button.textContent = option.text;
+                button.addEventListener('click', () => selectOption(option, button));
+                optionsGrid.appendChild(button);
+            });
+        }
+
+        function selectOption(selectedOption, button) {
+            if (answered) return;
+            answered = true;
+            
+            if (selectedOption.isCorrect) {
+                score++;
+                button.classList.add('correct');
+            } else {
+                button.classList.add('incorrect');
+            }
+            
+            // Highlight the correct answer
+            const buttons = document.querySelectorAll('.option-button');
+            buttons.forEach(btn => {
+                btn.classList.add('disabled');
+                const optionData = quizData.questions[currentQuestionIndex].answerOptions.find(opt => opt.text === btn.textContent);
+                if (optionData.isCorrect) {
+                    btn.classList.add('correct');
+                }
+            });
+
+            rationaleText.textContent = `Penjelasan: ${selectedOption.rationale}`;
+            hintText.textContent = `Petunjuk: ${quizData.questions[currentQuestionIndex].hint}`;
+            feedbackBox.style.display = 'block';
+            nextBtn.classList.remove('disabled');
+
+            if (currentQuestionIndex === quizData.questions.length - 1) {
+                nextBtn.textContent = 'Lihat Hasil';
+            }
+        }
+
+        function nextQuestion() {
+            if (!answered) return;
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        function showScore() {
+            quizContainer.style.display = 'none'; // Hide quiz container
+            scoreContainer.style.display = 'block';
+            const totalQuestions = quizData.questions.length;
+            scoreContainer.innerHTML = `
+                <h2>Selesai!</h2>
+                <p>Skor kamu adalah ${score} dari ${totalQuestions} soal.</p>
+                <button onclick="window.location.reload()" class="next-btn">Main Lagi</button>
+            `;
+        }
+
+        nextBtn.addEventListener('click', nextQuestion);
+        startQuiz();
+    </script>
+</body>
+</html>

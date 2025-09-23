@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesmen Formatif - Siklus Hidup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+        body { font-family: 'Comic Neue', cursive; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .pulse-animation { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .timer-warning { animation: shake 0.5s ease-in-out infinite; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 min-h-screen">
+    <!-- Header -->
+    <div class="bg-white shadow-lg border-b-4 border-purple-400">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold text-purple-800">🌱 Asesmen Siklus Hidup 🐣</h1>
+                    <p class="text-sm text-gray-600">Kelas 3A - SDN Tuak Daun Merah</p>
+                </div>
+                <div id="timer" class="bg-red-500 text-white px-4 py-2 rounded-full font-bold text-lg">
+                    ⏰ 10:00
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Selection Screen -->
+    <div id="studentSelection" class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl p-8 fade-in">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-purple-800 mb-4">👋 Selamat Datang!</h2>
+                <p class="text-lg text-gray-700">Pilih nama kamu untuk memulai asesmen</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
+                <button onclick="selectStudent('ADELLE DWI ALEXA NDEO')" class="student-btn bg-gradient-to-r from-pink-400 to-purple-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">ADELLE DWI ALEXA NDEO</button>
+                <button onclick="selectStudent('AHALINAT AMASAT KAMLASI')" class="student-btn bg-gradient-to-r from-blue-400 to-cyan-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">AHALINAT AMASAT KAMLASI</button>
+                <button onclick="selectStudent('ALVARO MORATA DJARA')" class="student-btn bg-gradient-to-r from-green-400 to-blue-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">ALVARO MORATA DJARA</button>
+                <button onclick="selectStudent('ANGEL RIANI KANDOLA')" class="student-btn bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">ANGEL RIANI KANDOLA</button>
+                <button onclick="selectStudent('ARJUNTO EDISON LIU')" class="student-btn bg-gradient-to-r from-red-400 to-pink-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">ARJUNTO EDISON LIU</button>
+                <button onclick="selectStudent('ARYS DE BRITO KARTIBA')" class="student-btn bg-gradient-to-r from-indigo-400 to-purple-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">ARYS DE BRITO KARTIBA</button>
+                <button onclick="selectStudent('AUDREY ANGGELICA SUTRISNO')" class="student-btn bg-gradient-to-r from-teal-400 to-green-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">AUDREY ANGGELICA SUTRISNO</button>
+                <button onclick="selectStudent('AURELIA LAVANYA WAY NUKA')" class="student-btn bg-gradient-to-r from-purple-400 to-pink-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">AURELIA LAVANYA WAY NUKA</button>
+                <button onclick="selectStudent('AURISTELA ZILVANIA PAU ROHI')" class="student-btn bg-gradient-to-r from-cyan-400 to-blue-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">AURISTELA ZILVANIA PAU ROHI</button>
+                <button onclick="selectStudent('AURORA YOSARANY PANDUWAL')" class="student-btn bg-gradient-to-r from-orange-400 to-red-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">AURORA YOSARANY PANDUWAL</button>
+                <button onclick="selectStudent('BRIAN CARLOS BAITANU')" class="student-btn bg-gradient-to-r from-emerald-400 to-teal-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">BRIAN CARLOS BAITANU</button>
+                <button onclick="selectStudent('JIMI ILLU NANGGI')" class="student-btn bg-gradient-to-r from-lime-400 to-green-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">JIMI ILLU NANGGI</button>
+                <button onclick="selectStudent('JUNIOR VALENTINHO LEONARD MBA\'U')" class="student-btn bg-gradient-to-r from-rose-400 to-pink-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">JUNIOR VALENTINHO LEONARD MBA'U</button>
+                <button onclick="selectStudent('KEVIN NATALINO KUNE')" class="student-btn bg-gradient-to-r from-violet-400 to-purple-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">KEVIN NATALINO KUNE</button>
+                <button onclick="selectStudent('KEYLA PUTRI ELLODEA')" class="student-btn bg-gradient-to-r from-sky-400 to-blue-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">KEYLA PUTRI ELLODEA</button>
+                <button onclick="selectStudent('KHANSA RAHMAWATI DENGGA')" class="student-btn bg-gradient-to-r from-amber-400 to-orange-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">KHANSA RAHMAWATI DENGGA</button>
+                <button onclick="selectStudent('KIANA ADELIA ADU')" class="student-btn bg-gradient-to-r from-fuchsia-400 to-pink-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">KIANA ADELIA ADU</button>
+                <button onclick="selectStudent('LEDY PINGA')" class="student-btn bg-gradient-to-r from-slate-400 to-gray-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">LEDY PINGA</button>
+                <button onclick="selectStudent('LUSIANA SEYRA NEVRANDA NAISOKO')" class="student-btn bg-gradient-to-r from-stone-400 to-neutral-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">LUSIANA SEYRA NEVRANDA NAISOKO</button>
+                <button onclick="selectStudent('MARGARETHA LUISA OLIVA MA\'U')" class="student-btn bg-gradient-to-r from-red-500 to-rose-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">MARGARETHA LUISA OLIVA MA'U</button>
+                <button onclick="selectStudent('MARIA BERTA ROSFINA KOTA SIKU')" class="student-btn bg-gradient-to-r from-green-500 to-emerald-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">MARIA BERTA ROSFINA KOTA SIKU</button>
+                <button onclick="selectStudent('MEISKA SARINA NAITNAFA')" class="student-btn bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">MEISKA SARINA NAITNAFA</button>
+                <button onclick="selectStudent('SEPTIANO DENUNO BERNADUS MBUIK')" class="student-btn bg-gradient-to-r from-purple-500 to-violet-500 text-white p-3 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm font-semibold">SEPTIANO DENUNO BERNADUS MBUIK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quizScreen" class="container mx-auto px-4 py-8 hidden">
+        <div class="max-w-4xl mx-auto">
+            <!-- Progress Bar -->
+            <div class="bg-white rounded-full p-2 mb-6 shadow-lg">
+                <div class="bg-gradient-to-r from-green-400 to-blue-500 h-4 rounded-full transition-all duration-500" id="progressBar" style="width: 10%"></div>
+            </div>
+
+            <!-- Student Info -->
+            <div class="bg-white rounded-2xl p-4 mb-6 shadow-lg">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-sm text-gray-600">Siswa:</span>
+                        <span id="currentStudent" class="font-bold text-purple-800 ml-2"></span>
+                    </div>
+                    <div>
+                        <span class="text-sm text-gray-600">Soal:</span>
+                        <span id="questionNumber" class="font-bold text-purple-800 ml-2">1 dari 10</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div id="questionCard" class="bg-white rounded-3xl shadow-2xl p-8 fade-in">
+                <!-- Question content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="resultsScreen" class="container mx-auto px-4 py-8 hidden">
+        <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl p-8 text-center fade-in">
+            <div class="mb-8">
+                <div class="text-6xl mb-4">🎉</div>
+                <h2 class="text-3xl font-bold text-purple-800 mb-4">Selamat!</h2>
+                <p class="text-xl text-gray-700 mb-2">Kamu telah menyelesaikan asesmen</p>
+                <p id="finalStudent" class="text-lg font-semibold text-purple-600"></p>
+            </div>
+            
+            <div class="bg-gradient-to-r from-green-100 to-blue-100 rounded-2xl p-6 mb-8">
+                <div class="text-4xl font-bold text-green-600 mb-2" id="finalScore">0/10</div>
+                <p class="text-gray-700">Skor Akhir</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-blue-50 rounded-xl p-4">
+                    <div class="text-2xl font-bold text-blue-600" id="correctAnswers">0</div>
+                    <p class="text-sm text-gray-600">Jawaban Benar</p>
+                </div>
+                <div class="bg-yellow-50 rounded-xl p-4">
+                    <div class="text-2xl font-bold text-yellow-600" id="wrongAnswers">0</div>
+                    <p class="text-sm text-gray-600">Jawaban Salah</p>
+                </div>
+                <div class="bg-purple-50 rounded-xl p-4">
+                    <div class="text-2xl font-bold text-purple-600" id="timeUsed">0:00</div>
+                    <p class="text-sm text-gray-600">Waktu Digunakan</p>
+                </div>
+            </div>
+
+            <button onclick="restartQuiz()" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-full font-bold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200">
+                🔄 Mulai Lagi
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 0;
+        let score = 0;
+        let selectedStudent = '';
+        let timeLeft = 600; // 10 minutes in seconds
+        let timerInterval;
+        let startTime;
+
+        const questions = [
+            {
+                type: 'visual',
+                question: 'Perhatikan gambar siklus hidup ayam berikut. Mengapa telur ayam harus dierami selama 21 hari?',
+                visual: `
+                    <div class="flex justify-center mb-6">
+                        <div class="grid grid-cols-4 gap-4">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-yellow-200 rounded-full flex items-center justify-center text-2xl mb-2">🥚</div>
+                                <p class="text-sm">Telur</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-orange-200 rounded-full flex items-center justify-center text-2xl mb-2">🐣</div>
+                                <p class="text-sm">Menetas</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-yellow-300 rounded-full flex items-center justify-center text-2xl mb-2">🐤</div>
+                                <p class="text-sm">Anak Ayam</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-red-200 rounded-full flex items-center justify-center text-2xl mb-2">🐓</div>
+                                <p class="text-sm">Ayam Dewasa</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                options: [
+                    'Agar telur tidak busuk',
+                    'Agar embrio di dalam telur berkembang dengan suhu yang tepat',
+                    'Agar telur menjadi lebih besar',
+                    'Agar kulit telur menjadi keras'
+                ],
+                correct: 1,
+                explanation: 'Telur harus dierami untuk memberikan suhu yang tepat (37-38°C) agar embrio di dalamnya dapat berkembang menjadi anak ayam.'
+            },
+            {
+                type: 'audio',
+                question: 'Dengarkan dengan baik! Jika seekor kucing betina melahirkan 4 anak kucing, dan setiap anak kucing akan menjadi dewasa dalam 6 bulan, berapa total kucing yang akan ada setelah 6 bulan?',
+                visual: `
+                    <div class="bg-blue-50 rounded-xl p-6 mb-6">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">🎧</div>
+                            <p class="text-lg font-semibold text-blue-800">Dengarkan baik-baik soal ini!</p>
+                            <div class="mt-4 flex justify-center">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-2xl">🐱</span>
+                                    <span class="text-xl">+</span>
+                                    <span class="text-2xl">🐱🐱🐱🐱</span>
+                                    <span class="text-xl">=</span>
+                                    <span class="text-2xl">❓</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                options: [
+                    '4 kucing (hanya anak kucing)',
+                    '5 kucing (induk + 4 anak)',
+                    '8 kucing (semua menjadi dewasa)',
+                    '1 kucing (hanya induk)'
+                ],
+                correct: 1,
+                explanation: 'Setelah 6 bulan akan ada 5 kucing: 1 induk kucing + 4 anak kucing yang sudah dewasa.'
+            },
+            {
+                type: 'kinesthetic',
+                question: 'Praktikkan gerakan! Urutkan tahapan siklus hidup manusia dengan mengurutkan gambar dari yang termuda ke tertua:',
+                visual: `
+                    <div class="mb-6">
+                        <p class="text-center text-lg font-semibold mb-4 text-purple-800">Seret dan urutkan dari termuda ke tertua!</p>
+                        <div class="grid grid-cols-4 gap-4 justify-center">
+                            <div class="drag-item bg-pink-100 p-4 rounded-xl text-center cursor-move border-2 border-dashed border-pink-300 hover:bg-pink-200 transition-all" data-order="3">
+                                <div class="text-4xl mb-2">👨</div>
+                                <p class="text-sm font-semibold">Dewasa</p>
+                            </div>
+                            <div class="drag-item bg-blue-100 p-4 rounded-xl text-center cursor-move border-2 border-dashed border-blue-300 hover:bg-blue-200 transition-all" data-order="1">
+                                <div class="text-4xl mb-2">👶</div>
+                                <p class="text-sm font-semibold">Bayi</p>
+                            </div>
+                            <div class="drag-item bg-green-100 p-4 rounded-xl text-center cursor-move border-2 border-dashed border-green-300 hover:bg-green-200 transition-all" data-order="4">
+                                <div class="text-4xl mb-2">👴</div>
+                                <p class="text-sm font-semibold">Lansia</p>
+                            </div>
+                            <div class="drag-item bg-yellow-100 p-4 rounded-xl text-center cursor-move border-2 border-dashed border-yellow-300 hover:bg-yellow-200 transition-all" data-order="2">
+                                <div class="text-4xl mb-2">🧒</div>
+                                <p class="text-sm font-semibold">Anak-anak</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                options: [
+                    'Bayi → Anak-anak → Dewasa → Lansia',
+                    'Anak-anak → Bayi → Dewasa → Lansia',
+                    'Dewasa → Anak-anak → Bayi → Lansia',
+                    'Lansia → Dewasa → Anak-anak → Bayi'
+                ],
+                correct: 0,
+                explanation: 'Urutan siklus hidup manusia yang benar adalah: Bayi → Anak-anak → Dewasa → Lansia.'
+            },
+            {
+                type: 'visual',
+                question: 'Analisis perbedaan! Mengapa anak kucing lahir dengan mata tertutup, sedangkan anak ayam lahir dengan mata terbuka?',
+                visual: `
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="bg-orange-50 rounded-xl p-4 text-center">
+                            <div class="text-4xl mb-3">🐱</div>
+                            <h3 class="font-bold text-orange-800 mb-2">Anak Kucing</h3>
+                            <p class="text-sm text-gray-700">Lahir dengan mata tertutup</p>
+                            <p class="text-sm text-gray-700">Tidak bisa berjalan</p>
+                        </div>
+                        <div class="bg-yellow-50 rounded-xl p-4 text-center">
+                            <div class="text-4xl mb-3">🐤</div>
+                            <h3 class="font-bold text-yellow-800 mb-2">Anak Ayam</h3>
+                            <p class="text-sm text-gray-700">Lahir dengan mata terbuka</p>
+                            <p class="text-sm text-gray-700">Bisa berjalan dan makan sendiri</p>
+                        </div>
+                    </div>
+                `,
+                options: [
+                    'Karena kucing lebih lemah dari ayam',
+                    'Karena kucing membutuhkan waktu lebih lama untuk berkembang setelah lahir',
+                    'Karena kucing tidak membutuhkan penglihatan',
+                    'Karena mata kucing lebih besar'
+                ],
+                correct: 1,
+                explanation: 'Anak kucing lahir dalam kondisi belum sempurna dan membutuhkan waktu untuk berkembang, sedangkan anak ayam lahir sudah siap untuk hidup mandiri.'
+            },
+            {
+                type: 'audio',
+                question: 'Dengarkan cerita ini: "Seorang anak berusia 8 tahun memelihara ayam. Ayam tersebut bertelur setiap hari. Setelah 21 hari, telur menetas menjadi anak ayam. Ketika anak tersebut berusia 14 tahun, berapa kali siklus hidup ayam yang sudah terjadi?"',
+                visual: `
+                    <div class="bg-green-50 rounded-xl p-6 mb-6">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">📖</div>
+                            <p class="text-lg font-semibold text-green-800">Cerita Matematika Siklus Hidup</p>
+                            <div class="mt-4 bg-white rounded-lg p-4">
+                                <div class="flex justify-center items-center space-x-4">
+                                    <div class="text-center">
+                                        <div class="text-2xl">👦</div>
+                                        <p class="text-sm">8 tahun</p>
+                                    </div>
+                                    <div class="text-xl">→</div>
+                                    <div class="text-center">
+                                        <div class="text-2xl">🥚</div>
+                                        <p class="text-sm">21 hari</p>
+                                    </div>
+                                    <div class="text-xl">→</div>
+                                    <div class="text-center">
+                                        <div class="text-2xl">🐤</div>
+                                        <p class="text-sm">Menetas</p>
+                                    </div>
+                                    <div class="text-xl">→</div>
+                                    <div class="text-center">
+                                        <div class="text-2xl">🧑</div>
+                                        <p class="text-sm">14 tahun</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                options: [
+                    'Sekitar 100 siklus (6 tahun = 2190 hari, dibagi 21 hari per siklus)',
+                    'Sekitar 50 siklus',
+                    '21 siklus',
+                    '6 siklus'
+                ],
+                correct: 0,
+                explanation: 'Dalam 6 tahun (dari usia 8-14 tahun) = 2190 hari. Jika setiap siklus 21 hari, maka 2190 ÷ 21 ≈ 104 siklus.'
+            },
+            {
+                type: 'kinesthetic',
+                question: 'Simulasi gerakan! Peragakan bagaimana cara induk ayam melindungi anak-anaknya. Mengapa perilaku ini penting untuk kelangsungan hidup anak ayam?',
+                visual: `
+                    <div class="mb-6">
+                        <div class="bg-red-50 rounded-xl p-6 text-center">
+                            <div class="text-4xl mb-4">🤱</div>
+                            <p class="text-lg font-semibold text-red-800 mb-4">Peragakan Gerakan Induk Ayam!</p>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="bg-white rounded-lg p-3">
+                                    <div class="text-2xl mb-2">🛡️</div>
+                                    <p class="text-sm">Melindungi dengan sayap</p>
+                                </div>
+                                <div class="bg-white rounded-lg p-3">
+                                    <div class="text-2xl mb-2">🍽️</div>
+                                    <p class="text-sm">Mencari makanan</p>
+                                </div>
+                                <div class="bg-white rounded-lg p-3">
+                                    <div class="text-2xl mb-2">⚠️</div>
+                                    <p class="text-sm">Memberi peringatan bahaya</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                options: [
+                    'Hanya untuk menghangatkan anak ayam',
+                    'Untuk melindungi dari predator, cuaca buruk, dan mengajarkan cara mencari makan',
+                    'Hanya untuk bermain dengan anak ayam',
+                    'Untuk membuat anak ayam tidak berkeliaran'
+                ],
+                correct: 1,
+                explanation: 'Induk ayam melindungi anak-anaknya dari berbagai bahaya seperti predator, cuaca buruk, dan mengajarkan cara bertahan hidup.'
+            },
+            {
+                type: 'visual',
+                question: 'Bandingkan dan evaluasi! Jika manusia hidup rata-rata 70 tahun dan kucing hidup rata-rata 15 tahun, berapa kali siklus hidup kucing terjadi dalam satu siklus hidup manusia?',
+                visual: `
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="bg-blue-50 rounded-xl p-6 text-center">
+                            <div class="text-4xl mb-3">👨‍👩‍👧‍👦</div>
+                            <h3 class="font-bold text-blue-800 mb-2">Manusia</h3>
+                            <div class="bg-white rounded-lg p-3">
+                                <p class="text-2xl font-bold text-blue-600">70 tahun</p>
+                                <p class="text-sm text-gray-600">Rata-rata usia hidup</p>
+                            </div>
+                        </div>
+                        <div class="bg-purple-50 rounded-xl p-6 text-center">
+                            <div class="text-4xl mb-3">🐱</div>
+                            <h3 class="font-bold text-purple-800 mb-2">Kucing</h3>
+                            <div class="bg-white rounded-lg p-3">
+                                <p class="text-2xl font-bold text-purple-600">15 tahun</p>
+                                <p class="text-sm text-gray-600">Rata-rata usia hidup</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-lg font-semibold text-gray-700">70 ÷ 15 = ?</p>
+                    </div>
+                `,
+                options: [
+                    'Sekitar 3 kali',
+                    'Sekitar 4-5 kali',
+                    'Sekitar 7 kali',
+                    'Sekitar 10 kali'
+                ],
+                correct: 1,
+                explanation: '70 tahun ÷ 15 tahun = 4,67 atau sekitar 4-5 kali siklus hidup kucing dalam satu siklus hidup manusia.'
+            },
+            {
+                type: 'audio',
+                question: 'Dengarkan baik-baik! Mengapa fase remaja pada manusia sangat penting dalam siklus hidup? Apa yang terjadi pada fase ini yang tidak terjadi pada hewan seperti ayam dan kucing?',
+                visual: `
+                    <div class="bg-indigo-50 rounded-xl p-6 mb-6">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">🎯</div>
+                            <p class="text-lg font-semibold text-indigo-800">Fokus pada Fase Remaja!</p>
+                            <div class="mt-4 grid grid-cols-3 gap-4">
+                                <div class="bg-white rounded-lg p-3">
+                                    <div class="text-2xl mb-2">🧠</div>
+                                    <p class="text-sm">Perkembangan otak</p>
+                                </div>
+                                <div class="bg-white rounded-lg p-3">
+                                    <div class="text-2xl mb-2">📚</div>
+                                    <p class="text-sm">Belajar kompleks</p>
+                                </div>
+                                <div class="bg-white rounded-lg p-3">
+                                    <div class="text-2xl mb-2">🤝</div>
+                                    <p class="text-sm">Sosialisasi</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                options: [
+                    'Hanya pertumbuhan fisik yang terjadi',
+                    'Perkembangan kemampuan berpikir kompleks, belajar, dan persiapan menjadi dewasa yang bertanggung jawab',
+                    'Tidak ada yang istimewa pada fase ini',
+                    'Sama seperti yang terjadi pada hewan'
+                ],
+                correct: 1,
+                explanation: 'Fase remaja pada manusia unik karena terjadi perkembangan kemampuan berpikir kompleks, pembelajaran yang mendalam, dan persiapan mental untuk menjadi dewasa yang bertanggung jawab.'
+            },
+            {
+                type: 'kinesthetic',
+                question: 'Praktik pemecahan masalah! Jika kamu harus merawat telur ayam agar menetas dengan sukses, apa saja yang harus kamu lakukan? Urutkan langkah-langkahnya!',
+                visual: `
+                    <div class="mb-6">
+                        <p class="text-center text-lg font-semibold mb-4 text-green-800">Susun langkah merawat telur ayam!</p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="step-item bg-yellow-100 p-3 rounded-lg border-2 border-dashed border-yellow-300 cursor-move hover:bg-yellow-200 transition-all" data-step="2">
+                                <div class="flex items-center">
+                                    <span class="text-xl mr-3">🌡️</span>
+                                    <span class="text-sm font-semibold">Jaga suhu 37-38°C</span>
+                                </div>
+                            </div>
+                            <div class="step-item bg-blue-100 p-3 rounded-lg border-2 border-dashed border-blue-300 cursor-move hover:bg-blue-200 transition-all" data-step="4">
+                                <div class="flex items-center">
+                                    <span class="text-xl mr-3">👀</span>
+                                    <span class="text-sm font-semibold">Pantau perkembangan</span>
+                                </div>
+                            </div>
+                            <div class="step-item bg-green-100 p-3 rounded-lg border-2 border-dashed border-green-300 cursor-move hover:bg-green-200 transition-all" data-step="1">
+                                <div class="flex items-center">
+                                    <span class="text-xl mr-3">🥚</span>
+                                    <span class="text-sm font-semibold">Pilih telur yang baik</span>
+                                </div>
+                            </div>
+                            <div class="step-item bg-purple-100 p-3 rounded-lg border-2 border-dashed border-purple-300 cursor-move hover:bg-purple-200 transition-all" data-step="3">
+                                <div class="flex items-center">
+                                    <span class="text-xl mr-3">🔄</span>
+                                    <span class="text-sm font-semibold">Putar telur secara teratur</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                options: [
+                    'Pilih telur → Jaga suhu → Putar telur → Pantau perkembangan',
+                    'Jaga suhu → Pilih telur → Pantau → Putar telur',
+                    'Putar telur → Pilih telur → Jaga suhu → Pantau',
+                    'Pantau → Putar → Pilih → Jaga suhu'
+                ],
+                correct: 0,
+                explanation: 'Urutan yang benar: 1) Pilih telur yang baik, 2) Jaga suhu yang tepat, 3) Putar telur secara teratur, 4) Pantau perkembangan embrio.'
+            },
+            {
+                type: 'visual',
+                question: 'Sintesis dan evaluasi! Berdasarkan semua yang telah kamu pelajari, mengapa memahami siklus hidup penting bagi manusia dalam menjaga kelestarian hewan?',
+                visual: `
+                    <div class="mb-6">
+                        <div class="bg-gradient-to-r from-green-100 to-blue-100 rounded-xl p-6">
+                            <div class="text-center mb-4">
+                                <div class="text-4xl mb-2">🌍</div>
+                                <h3 class="text-xl font-bold text-green-800">Kelestarian Alam</h3>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="bg-white rounded-lg p-3 text-center">
+                                    <div class="text-2xl mb-2">🐣</div>
+                                    <p class="text-sm font-semibold">Melindungi Reproduksi</p>
+                                </div>
+                                <div class="bg-white rounded-lg p-3 text-center">
+                                    <div class="text-2xl mb-2">🏠</div>
+                                    <p class="text-sm font-semibold">Menjaga Habitat</p>
+                                </div>
+                                <div class="bg-white rounded-lg p-3 text-center">
+                                    <div class="text-2xl mb-2">⚖️</div>
+                                    <p class="text-sm font-semibold">Keseimbangan Ekosistem</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                options: [
+                    'Hanya untuk mengetahui cara memelihara hewan peliharaan',
+                    'Untuk memahami kebutuhan setiap tahap hidup hewan sehingga dapat melindungi dan melestarikan spesies',
+                    'Tidak ada hubungannya dengan kelestarian',
+                    'Hanya untuk kepentingan ekonomi manusia'
+                ],
+                correct: 1,
+                explanation: 'Memahami siklus hidup membantu kita mengetahui kebutuhan khusus setiap tahap kehidupan hewan, sehingga kita dapat melindungi habitat, masa reproduksi, dan menjaga keseimbangan ekosistem untuk kelestarian spesies.'
+            }
+        ];
+
+        function selectStudent(name) {
+            selectedStudent = name;
+            document.getElementById('currentStudent').textContent = name;
+            document.getElementById('studentSelection').classList.add('hidden');
+            document.getElementById('quizScreen').classList.remove('hidden');
+            startTimer();
+            startTime = Date.now();
+            showQuestion();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const timerElement = document.getElementById('timer');
+                timerElement.textContent = `⏰ ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 60) {
+                    timerElement.classList.add('timer-warning');
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    endQuiz();
+                }
+            }, 1000);
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            const progressPercent = ((currentQuestion + 1) / questions.length) * 100;
+            
+            document.getElementById('progressBar').style.width = progressPercent + '%';
+            document.getElementById('questionNumber').textContent = `${currentQuestion + 1} dari ${questions.length}`;
+            
+            let questionHTML = `
+                <div class="mb-6">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-${getTypeColor(question.type)}-100 text-${getTypeColor(question.type)}-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">
+                            ${getTypeIcon(question.type)} ${getTypeName(question.type)}
+                        </span>
+                        <span class="text-sm text-gray-500">Soal ${currentQuestion + 1}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">${question.question}</h3>
+                    ${question.visual}
+                </div>
+                
+                <div class="space-y-3 mb-6">
+            `;
+            
+            question.options.forEach((option, index) => {
+                questionHTML += `
+                    <button onclick="selectAnswer(${index})" class="option-btn w-full text-left p-4 rounded-xl border-2 border-gray-200 hover:border-purple-400 hover:bg-purple-50 transition-all duration-200 transform hover:scale-102">
+                        <div class="flex items-center">
+                            <span class="w-8 h-8 bg-purple-100 text-purple-800 rounded-full flex items-center justify-center font-bold mr-4">${String.fromCharCode(65 + index)}</span>
+                            <span class="font-medium">${option}</span>
+                        </div>
+                    </button>
+                `;
+            });
+            
+            questionHTML += '</div>';
+            
+            document.getElementById('questionCard').innerHTML = questionHTML;
+        }
+
+        function getTypeColor(type) {
+            const colors = {
+                'visual': 'blue',
+                'audio': 'green',
+                'kinesthetic': 'purple'
+            };
+            return colors[type] || 'gray';
+        }
+
+        function getTypeIcon(type) {
+            const icons = {
+                'visual': '👁️',
+                'audio': '👂',
+                'kinesthetic': '🤲'
+            };
+            return icons[type] || '📝';
+        }
+
+        function getTypeName(type) {
+            const names = {
+                'visual': 'Visual',
+                'audio': 'Auditori',
+                'kinesthetic': 'Kinestetik'
+            };
+            return names[type] || 'Umum';
+        }
+
+        function selectAnswer(answerIndex) {
+            const question = questions[currentQuestion];
+            const isCorrect = answerIndex === question.correct;
+            
+            if (isCorrect) {
+                score++;
+            }
+            
+            // Show feedback
+            showFeedback(isCorrect, question.explanation);
+            
+            // Disable all option buttons
+            const optionBtns = document.querySelectorAll('.option-btn');
+            optionBtns.forEach((btn, index) => {
+                btn.disabled = true;
+                if (index === question.correct) {
+                    btn.classList.add('bg-green-100', 'border-green-400');
+                } else if (index === answerIndex && !isCorrect) {
+                    btn.classList.add('bg-red-100', 'border-red-400');
+                }
+            });
+            
+            // Move to next question after delay
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    showQuestion();
+                } else {
+                    endQuiz();
+                }
+            }, 3000);
+        }
+
+        function showFeedback(isCorrect, explanation) {
+            const feedbackHTML = `
+                <div class="mt-6 p-4 rounded-xl ${isCorrect ? 'bg-green-100 border-green-400' : 'bg-red-100 border-red-400'} border-2">
+                    <div class="flex items-center mb-2">
+                        <span class="text-2xl mr-2">${isCorrect ? '✅' : '❌'}</span>
+                        <span class="font-bold ${isCorrect ? 'text-green-800' : 'text-red-800'}">
+                            ${isCorrect ? 'Benar!' : 'Kurang Tepat'}
+                        </span>
+                    </div>
+                    <p class="text-gray-700">${explanation}</p>
+                </div>
+            `;
+            
+            document.getElementById('questionCard').innerHTML += feedbackHTML;
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            const endTime = Date.now();
+            const timeUsed = Math.floor((endTime - startTime) / 1000);
+            const minutes = Math.floor(timeUsed / 60);
+            const seconds = timeUsed % 60;
+            
+            document.getElementById('quizScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.remove('hidden');
+            
+            document.getElementById('finalStudent').textContent = selectedStudent;
+            document.getElementById('finalScore').textContent = `${score}/${questions.length}`;
+            document.getElementById('correctAnswers').textContent = score;
+            document.getElementById('wrongAnswers').textContent = questions.length - score;
+            document.getElementById('timeUsed').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            timeLeft = 600;
+            selectedStudent = '';
+            
+            document.getElementById('resultsScreen').classList.add('hidden');
+            document.getElementById('studentSelection').classList.remove('hidden');
+            
+            const timerElement = document.getElementById('timer');
+            timerElement.textContent = '⏰ 10:00';
+            timerElement.classList.remove('timer-warning');
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9831b98ba6bbff85',t:'MTc1ODU0MzI5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

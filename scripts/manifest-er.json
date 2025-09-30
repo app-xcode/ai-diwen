@@ -10,7 +10,7 @@
     "orientation": "portrait-primary",
     "icons": [
         {
-            "src": "assets/img/logo.png",
+            "src": "https://edita-rahayu.ct.ws/assets/img/logo.png",
             "type": "image/png",
             "sizes": "164x164"
         }

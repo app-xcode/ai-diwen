@@ -1,1 +1,4 @@
-const container = document.querySelector('div[data-hide-scrollbars="true"]'); const speed = 1; // pixel per langkah const interval = 20; // ms (20–30 ideal) let timer; function start() { timer = setInterval(() => { container.scrollTop += speed; if (container.scrollTop >= container.scrollHeight - container.clientHeight) { container.scrollTop = 0; } }, interval); } function stop() { clearInterval(timer); } start();
+const container = document.querySelector('div[data-hide-scrollbars="true"]'); 
+const speed = 10; // pixel per langkah
+const interval = 20; // ms (20–30 ideal) 
+let timer; function start() { timer = setInterval(() => { container.scrollTop += speed; if (container.scrollTop >= container.scrollHeight - container.clientHeight) { container.scrollTop = 0; } }, interval); } function stop() { clearInterval(timer); } start();

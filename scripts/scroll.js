@@ -1,5 +1,5 @@
 (function () {
-  const container = document.querySelector(".auto-scroll-x");
+  const container = document.querySelector('div[data-hide-scrollbars="true"]');
   if (!container) return;
 
   let speed = 0.3; // atur kecepatan (0.1 – 0.5)

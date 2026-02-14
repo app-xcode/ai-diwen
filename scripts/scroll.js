@@ -1,47 +1,46 @@
 const container = document.querySelector('div[data-hide-scrollbars="true"]');
-const images = container.querySelectorAll('img');
+const slides = container.querySelectorAll('img');
 
-const delay = 1500;     // jeda antar slide (ms)
-const step = 20;        // kecepatan animasi (px)
-const interval = 10;    // interval animasi (ms)
+const delay = 1200;    // jeda antar slide
+const step = 25;       // kecepatan scroll
+const interval = 10;
 
 let index = 0;
-let animating = false;
+let timer;
 
-function scrollToSlide(i) {
-  animating = true;
-  const target = images[i].offsetTop;
+function scrollTo(target) {
+  clearInterval(timer);
 
-  const timer = setInterval(() => {
+  timer = setInterval(() => {
     const current = container.scrollTop;
     const distance = target - current;
 
     if (Math.abs(distance) <= step) {
       container.scrollTop = target;
       clearInterval(timer);
-      animating = false;
     } else {
       container.scrollTop += distance > 0 ? step : -step;
     }
   }, interval);
 }
 
-function startAutoScroll() {
-  setTimeout(function next() {
-    if (!animating) {
-      index++;
-      if (index >= images.length) {
-        index = 0;
-        container.scrollTop = 0;
-      }
-      scrollToSlide(index);
+function start() {
+  setInterval(() => {
+    index++;
+    if (index >= slides.length) {
+      index = 0;
+      container.scrollTop = 0;
     }
-    setTimeout(next, delay);
+
+    const slideHeight = slides[0].getBoundingClientRect().height;
+    const targetScroll = slideHeight * index;
+
+    scrollTo(targetScroll);
   }, delay);
 }
 
 // pause saat hover
-container.addEventListener("mouseover", () => animating = true);
-container.addEventListener("mouseleave", () => animating = false);
+container.addEventListener("mouseenter", () => clearInterval(timer));
+container.addEventListener("mouseleave", start);
 
-startAutoScroll();
+start();

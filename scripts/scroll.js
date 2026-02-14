@@ -1,24 +1,24 @@
-(function () {
-  const container = document.querySelector('div[data-hide-scrollbars="true"]');
-  if (!container) return;
+const container = document.querySelector('div[data-hide-scrollbars="true"]');
+  const speed = 1;      // pixel per langkah
+  const interval = 20; // ms (20–30 ideal)
+  let timer;
 
-  let speed = 0.3; // atur kecepatan (0.1 – 0.5)
-  let rafId;
+  function start() {
+    timer = setInterval(() => {
+      container.scrollTop += speed;
 
-  function loop() {
-    container.scrollLeft += speed;
-
-    // loop halus
-    if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
-      container.scrollLeft = 0;
-    }
-
-    rafId = requestAnimationFrame(loop);
+      if (container.scrollTop >= container.scrollHeight - container.clientHeight) {
+        container.scrollTop = 0;
+      }
+    }, interval);
   }
 
-  rafId = requestAnimationFrame(loop);
+  function stop() {
+    clearInterval(timer);
+  }
 
-  // optional: pause saat hover
-  container.addEventListener("mouseenter", () => cancelAnimationFrame(rafId));
-  container.addEventListener("mouseleave", () => rafId = requestAnimationFrame(loop));
-})();
+  start();
+
+  // pause saat hover
+  container.addEventListener("mouseover", stop);
+  container.addEventListener("mouseleave", start);

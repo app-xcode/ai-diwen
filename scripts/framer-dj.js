@@ -1,7 +1,6 @@
 var playng = false;
 var audiox = document.querySelectorAll(`#audio`);
 audiox[0].onplay = function () {
-    this.muted = false;
     playng = true;
 
 }

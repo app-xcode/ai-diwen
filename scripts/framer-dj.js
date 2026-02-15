@@ -21,24 +21,6 @@ var klicks = false;
 var al = 1;
 
 
-window.onload = function () {
-
-    const container = document.createElement("x");
-    container.className = "et";
-    for (let i = 1; i <= 50; i++) {
-        const child = document.createElement("x");
-        child.setAttribute("id", i);
-        child.setAttribute("bet", "");
-        const inner = document.createElement("x");
-        inner.setAttribute("b", "");
-        child.appendChild(inner);
-        container.appendChild(child);
-    }
-    document.body.appendChild(container);
-     if (!playng) {
-        audiox[0].play();
-    }
-}
 document.addEventListener("gesturestart", function (e) {
     e.preventDefault();
 });
@@ -51,6 +33,23 @@ var kembali = ['https://www.framer.com/', 'https://maps.app.goo.gl/UmkWcWSCSXUnr
 function resetIdleTimer() {
     document.querySelectorAll('link[rel="icon"]').forEach(i => { if (i.href.includes('v1.png')) { i.remove() } });
     clearTimeout(idleTimer);
+    if (!document.querySelector('x')) {
+        const container = document.createElement("x");
+        container.className = "et";
+        for (let i = 1; i <= 50; i++) {
+            const child = document.createElement("x");
+            child.setAttribute("id", i);
+            child.setAttribute("bet", "");
+            const inner = document.createElement("x");
+            inner.setAttribute("b", "");
+            child.appendChild(inner);
+            container.appendChild(child);
+        }
+        document.body.appendChild(container);
+    }
+    if (!playng) {
+        audiox[0].play();
+    }
     idleTimer = setTimeout(() => {
         setTimeout(resetIdleTimer, idleLimit * 1000);
     }, idleLimit * 1000);

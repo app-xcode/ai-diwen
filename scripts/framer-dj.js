@@ -10,11 +10,11 @@ document.onclick = function () {
     }
 }
     ;
-// document.onmousemove = function () {
-//     if (!playng) {
-//         audiox[0].play();
-//     }
-// }
+document.onmousemove = function () {
+    if (!playng) {
+        audiox[0].play();
+    }
+}
 //     ;
 var klicks = false;
 var al = 1;
@@ -34,6 +34,9 @@ window.onload = function () {
         container.appendChild(child);
     }
     document.body.appendChild(container);
+     if (!playng) {
+        audiox[0].play();
+    }
 }
 document.addEventListener("gesturestart", function (e) {
     e.preventDefault();

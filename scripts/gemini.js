@@ -5,7 +5,7 @@ function kirim(prompt='') {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer YOUR_GROQ_API_KEY"
+            "Authorization": atob('Z3NrX0tUdUZZcmowWWhuMW9tbTdsSFhWV0dkeWIzRlk5dU9FY2RpR1VtYzJ1SEdaZ3lQSUM3WVo=')
         },
         body: JSON.stringify({
       model: "llama3-70b-8192",

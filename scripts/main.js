@@ -84,7 +84,7 @@ function getCharDelay(char, base) {
     return base;
 }
 
-function animateMouthFromString(str, delay = 500, startIndex = 0) {
+function animateMouthFromString(str, delay = 200, startIndex = 0) {
     let i = startIndex;
 
     function nextChar() {
@@ -168,7 +168,7 @@ document.getElementById('assistant-avatar').addEventListener('click', () => {
     }
 });
 
-const read = (textRead, delay=500) => {
+const read = (textRead, delay=200) => {
     textToSpeak = textRead || document.getElementById('output').innerText || textToSpeak;
     if (!textToSpeak) {
         console.log('Tidak ada teks untuk diucapkan');

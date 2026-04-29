@@ -34,6 +34,8 @@ const defaultMouth = { rx: 8, ry: 1 };
 const openMouth = { rx: 8, ry: 3 };
 
 function setMouthShape(rx, ry) {
+    if(rx>8) rx = 8;
+    if(ry>8) ry = 8;
     mouth.setAttribute('rx', rx);
     mouth.setAttribute('ry', ry);
 }
@@ -55,6 +57,7 @@ function animateMouthFromString(str, delay = 120, startIndex = 0) {
     let i = startIndex;
 
     function nextChar() {
+        resetMouth();
         if (i >= str.length || isPaused) {
             animIndex = i;
             return;

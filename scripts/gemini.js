@@ -5,10 +5,10 @@ function kirim(prompt='') {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": "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"
+            "Authorization": "Bearer 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"
         },
         body: JSON.stringify({
-      model: "llama3-70b-8192",
+      model: "llama-3.3-70b-versatile",
       messages: [
         {
           role: "user",

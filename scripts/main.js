@@ -2,6 +2,19 @@ const mouth = document.getElementById('mouth');
 
 mouth.style.transition = "all 0.1s ease";
 
+let idleAnimation;
+
+function startIdleMouth() {
+    idleAnimation = setInterval(() => {
+        const random = Math.random() * 2;
+        mouth.setAttribute('ry', 4 + random);
+    }, 80);
+}
+
+function stopIdleMouth() {
+    clearInterval(idleAnimation);
+}
+
 // Mapping vokal ke ukuran mulut (rx, ry)
 const mouthShapes = {
     'A': { rx: 14, ry: 10, more: ['H', 'K'] },
@@ -123,9 +136,11 @@ const read = () => {
             isPaused = false;
             animIndex = 0;
             //animateMouthFromString(textToSpeak, 50, animIndex);
+             startIdleMouth(); // 🔥 tambah ini
         };
         utter.onend = () => {
               resetMouth();
+            stopIdleMouth(); // 🔥 tambah ini
             stopMouthAnimation();
             isPaused = false;
             animIndex = 0;

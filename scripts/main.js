@@ -90,7 +90,7 @@ document.getElementById('assistant-avatar').addEventListener('click', () => {
     } else if (isPaused) {
         speechSynthesis.resume();
         isPaused = false;
-        animateMouthFromString(textToSpeak, 50, animIndex);
+       // animateMouthFromString(textToSpeak, 50, animIndex);
     } else {
         // Reset semua jika status tidak jelas
         speechSynthesis.cancel();
@@ -120,9 +120,10 @@ const read = () => {
         utter.onstart = () => {
             isPaused = false;
             animIndex = 0;
-            animateMouthFromString(textToSpeak, 50, animIndex);
+            //animateMouthFromString(textToSpeak, 50, animIndex);
         };
         utter.onend = () => {
+              resetMouth();
             stopMouthAnimation();
             isPaused = false;
             animIndex = 0;
@@ -134,7 +135,7 @@ const read = () => {
                     const char = textToSpeak[index]?.toUpperCase();
             
                     if (!char) return;
-            
+                    if (char === ' ') resetMouth();
                     let found = false;
             
                     if (mouthShapes[char]) {

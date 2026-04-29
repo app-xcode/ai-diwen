@@ -189,6 +189,7 @@ const read = (textRead, delay=60) => {
         };
         
         utter.onend = () => {
+            stopIdleMouth();
             stopMouthAnimation();
             resetMouth();
         };

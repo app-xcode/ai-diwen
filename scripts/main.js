@@ -118,8 +118,8 @@ document.getElementById('assistant-avatar').addEventListener('click', () => {
     }
 });
 
-const read = () => {
-    textToSpeak = document.getElementById('output').innerText || textToSpeak;
+const read = (textRead) => {
+    textToSpeak = textRead || document.getElementById('output').innerText || textToSpeak;
     if (!textToSpeak) {
         console.log('Tidak ada teks untuk diucapkan');
         return;

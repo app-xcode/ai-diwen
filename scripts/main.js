@@ -130,33 +130,43 @@ const read = () => {
         };
 
         utter.onboundary = (event) => {
-                if (event.name === 'word' || event.name === 'char') {
-                    const index = event.charIndex;
-                    const char = textToSpeak[index]?.toUpperCase();
-            
-                    if (!char) return;
-                    if (char === ' ') resetMouth();
-                    let found = false;
-            
-                    if (mouthShapes[char]) {
-                        const { rx, ry } = mouthShapes[char];
-                        setMouthShape(rx, ry);
-                        found = true;
-                    } else {
-                        for (const key in mouthShapes) {
-                            if (mouthShapes[key].more?.includes(char)) {
-                                setMouthShape(mouthShapes[key].rx, mouthShapes[key].ry);
-                                found = true;
-                                break;
-                            }
-                        }
-                    }
-            
-                    if (!found) {
-                        setMouthShape(openMouth.rx, openMouth.ry);
-                    }
+            if (event.charIndex === undefined) return;
+        
+            const index = event.charIndex;
+            const char = textToSpeak[index]?.toUpperCase();
+        
+            if (!char) return;
+        
+            // spasi → tutup mulut
+            if (char === ' ') {
+                resetMouth();
+                return;
+            }
+        
+            // huruf bibir tertutup
+            if (['M','B','P'].includes(char)) {
+                setMouthShape(8, 1);
+                return;
+            }
+        
+            // vokal utama
+            if (mouthShapes[char]) {
+                const { rx, ry } = mouthShapes[char];
+                setMouthShape(rx, ry);
+                return;
+            }
+        
+            // huruf turunan
+            for (const key in mouthShapes) {
+                if (mouthShapes[key].more?.includes(char)) {
+                    setMouthShape(mouthShapes[key].rx, mouthShapes[key].ry);
+                    return;
                 }
-            };
+            }
+        
+            // fallback
+            resetMouth();
+        };
 
         window.speechSynthesis.speak(utter);
     }else{

@@ -5,7 +5,7 @@ function kirim(prompt='') {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": atob('Z3NrX0tUdUZZcmowWWhuMW9tbTdsSFhWV0dkeWIzRlk5dU9FY2RpR1VtYzJ1SEdaZ3lQSUM3WVo=')
+            "Authorization": "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"
         },
         body: JSON.stringify({
       model: "llama3-70b-8192",

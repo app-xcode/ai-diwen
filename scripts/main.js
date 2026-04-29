@@ -128,6 +128,35 @@ const read = () => {
             animIndex = 0;
         };
 
+        utter.onboundary = (event) => {
+                if (event.name === 'word' || event.name === 'char') {
+                    const index = event.charIndex;
+                    const char = textToSpeak[index]?.toUpperCase();
+            
+                    if (!char) return;
+            
+                    let found = false;
+            
+                    if (mouthShapes[char]) {
+                        const { rx, ry } = mouthShapes[char];
+                        setMouthShape(rx, ry);
+                        found = true;
+                    } else {
+                        for (const key in mouthShapes) {
+                            if (mouthShapes[key].more?.includes(char)) {
+                                setMouthShape(mouthShapes[key].rx, mouthShapes[key].ry);
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+            
+                    if (!found) {
+                        setMouthShape(openMouth.rx, openMouth.ry);
+                    }
+                }
+            };
+
         window.speechSynthesis.speak(utter);
     }else{
         speechSynthesis.cancel();

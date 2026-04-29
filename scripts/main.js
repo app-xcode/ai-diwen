@@ -51,43 +51,67 @@ let isPaused = false;
 let utter = null;
 let animIndex = 0; // posisi animasi terakhir
 
-function animateMouthFromString(str, delay = 200, startIndex = 0) {
+function animateMouthFromString(str, delay = 120, startIndex = 0) {
     let i = startIndex;
+
     function nextChar() {
         if (i >= str.length || isPaused) {
-            animIndex = i; // simpan posisi terakhir
+            animIndex = i;
             return;
         }
-        const key = str[i].toUpperCase();
-        let found = false;
+
+        const char = str[i];
+        const key = char.toUpperCase();
+
         let currentDelay = delay;
-        if (char === '.' || char === ',' || char === ' ') {
+
+        // SPASI → mulut tutup + jeda kecil
+        if (char === ' ') {
             resetMouth();
-            currentDelay = char === '.' ? 250 : 120;
-        } else if (mouthShapes[key]) {
+            currentDelay = 80;
+        }
+
+        // TANDA BACA → jeda lebih lama
+        else if (char === '.' || char === ',' || char === '!' || char === '?') {
+            resetMouth();
+            currentDelay = char === '.' ? 250 : 180;
+        }
+
+        // BILABIAL (mulut rapat)
+        else if (['M', 'B', 'P'].includes(key)) {
+            setMouthShape(8, 1);
+        }
+
+        // vokal utama
+        else if (mouthShapes[key]) {
             const { rx, ry } = mouthShapes[key];
             setMouthShape(rx, ry);
-            found = true;
-        } else {
+        }
+
+        // huruf turunan
+        else {
+            let found = false;
+
             for (const shapeKey in mouthShapes) {
                 const shape = mouthShapes[shapeKey];
-                if (shape.more && shape.more.includes(key)) {
+                if (shape.more?.includes(key)) {
                     setMouthShape(shape.rx, shape.ry);
                     found = true;
                     break;
                 }
             }
+
+            if (!found && /^[A-Z]$/.test(key)) {
+                setMouthShape(openMouth.rx, openMouth.ry);
+            }
         }
-        if (!found && /^[A-Z]$/.test(key)) {
-            setMouthShape(openMouth.rx, openMouth.ry);
-        }
-        if (!/[A-Z]/.test(key)) {
-            resetMouth();
-        }
+
+        animIndex = i;
         i++;
-        animIndex = i; // update posisi terakhir
+
         mouthAnimationTimeout = setTimeout(nextChar, currentDelay);
     }
+
     nextChar();
 }
 

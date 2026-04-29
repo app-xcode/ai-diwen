@@ -168,7 +168,7 @@ document.getElementById('assistant-avatar').addEventListener('click', () => {
     }
 });
 
-const read = (textRead, delay=200) => {
+const read = (textRead, delay=60) => {
     textToSpeak = textRead || document.getElementById('output').innerText || textToSpeak;
     if (!textToSpeak) {
         console.log('Tidak ada teks untuk diucapkan');

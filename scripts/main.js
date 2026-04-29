@@ -17,21 +17,21 @@ function stopIdleMouth() {
 
 // Mapping vokal ke ukuran mulut (rx, ry)
 const mouthShapes = {
-    'A': { rx: 14, ry: 10, more: ['H', 'K'] },
-    'I': { rx: 12, ry: 5, more: ['Q'] },
-    'U': { rx: 7, ry: 7 },
+    'A': { rx: 7, ry: 5, more: ['H', 'K'] },
+    'I': { rx: 8, ry: 3, more: ['Q'] },
+    'U': { rx: 3, ry: 4 },
     'E': {
-        rx: 13, ry: 7, more: [
+        rx: 8, ry: 3, more: [
             'B', 'C', 'D', 'F', 'G', 'J', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z'
         ]
     },
-    'O': { rx: 7, ry: 8 }
+    'O': { rx: 4, ry: 7 }
 };
 
 // Default mulut tertutup
 const defaultMouth = { rx: 8, ry: 1 };
 // Default mulut terbuka untuk huruf lain
-const openMouth = { rx: 10, ry: 6 };
+const openMouth = { rx: 8, ry: 3 };
 
 function setMouthShape(rx, ry) {
     mouth.setAttribute('rx', rx);

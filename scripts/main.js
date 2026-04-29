@@ -184,7 +184,8 @@ const read = () => {
             }
         
             // fallback
-            setMouthShape(10, 4);
+            resetMouth();
+            // setMouthShape(10, 4);
         };
 
         window.speechSynthesis.speak(utter);

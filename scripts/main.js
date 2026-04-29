@@ -53,6 +53,37 @@ let isPaused = false;
 let utter = null;
 let animIndex = 0; // posisi animasi terakhir
 
+function getCharDelay(char, base) {
+    const c = char.toUpperCase();
+
+    // 🔴 tanda baca = pause besar
+    if (char === '.' || char === '?' || char === '!') {
+        return base * 2.8;
+    }
+
+    // 🟠 koma = pause sedang
+    if (char === ',') {
+        return base * 1.6;
+    }
+
+    // ⚪ spasi = napas pendek
+    if (char === ' ') {
+        return base * 0.6;
+    }
+
+    // 🔵 huruf berat (butuh gerakan bibir)
+    if (['M', 'B', 'P'].includes(c)) {
+        return base * 1.2;
+    }
+
+    // 🟢 vokal lebih ringan
+    if (['A','I','U','E','O'].includes(c)) {
+        return base * 0.9;
+    }
+
+    return base;
+}
+
 function animateMouthFromString(str, delay = 120, startIndex = 0) {
     let i = startIndex;
 
@@ -67,18 +98,10 @@ function animateMouthFromString(str, delay = 120, startIndex = 0) {
         const char = str[i];
         const key = char.toUpperCase();
 
-        let currentDelay = delay;
+       let currentDelay = getCharDelay(char, delay);
 
-        // SPASI → mulut tutup + jeda kecil
-        if (char === ' ') {
+       if (char === ' ' || char === '.' || char === ',' || char === '!' || char === '?') {
             resetMouth();
-            currentDelay = 80;
-        }
-
-        // TANDA BACA → jeda lebih lama
-        else if (char === '.' || char === ',' || char === '!' || char === '?') {
-            resetMouth();
-            currentDelay = char === '.' ? 250 : 180;
         }
 
         // BILABIAL (mulut rapat)

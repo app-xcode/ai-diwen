@@ -163,7 +163,7 @@ const read = (textRead) => {
 
        utter.onstart = () => {
         stopIdleMouth();
-        animateMouthFromString(textToSpeak, 60);
+        animateMouthFromString(textToSpeak);
         };
         
         utter.onend = () => {

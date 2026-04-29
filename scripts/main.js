@@ -57,9 +57,10 @@ function animateMouthFromString(str, delay = 120, startIndex = 0) {
     let i = startIndex;
 
     function nextChar() {
-        resetMouth();
         if (i >= str.length || isPaused) {
             animIndex = i;
+            resetMouth(); // 🔥 penting: tutup mulut saat selesai
+            stopMouthAnimation?.(); // optional safety
             return;
         }
 

@@ -90,8 +90,7 @@ function animateMouthFromString(str, delay = 200, startIndex = 0) {
     function nextChar() {
         if (i >= str.length || isPaused) {
             animIndex = i;
-            resetMouth(); // 🔥 penting: tutup mulut saat selesai
-            stopMouthAnimation?.(); // optional safety
+            startIdleMouth();
             return;
         }
 

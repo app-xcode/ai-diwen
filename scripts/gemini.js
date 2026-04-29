@@ -21,7 +21,7 @@ function kirim(prompt='') {
         .then(res => res.json())
         .then(data => {
             console.log(data);
-            const jawab = data.candidates?.[0]?.content?.parts?.[0]?.text || "Tidak ada jawaban.";
+            const jawab = data.choices?.[0]?.message?.content || "Tidak ada jawaban.";
             const html = marked.parse(jawab);
             document.getElementById("output").innerHTML = html;
             read();

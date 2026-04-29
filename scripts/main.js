@@ -138,7 +138,7 @@ const read = (textRead) => {
             isPaused = false;
             animIndex = 0;
             //animateMouthFromString(textToSpeak, 50, animIndex);
-             startIdleMouth(); // 🔥 tambah ini
+            stopIdleMouth();
         };
         utter.onend = () => {
               resetMouth();
@@ -147,7 +147,7 @@ const read = (textRead) => {
             isPaused = false;
             animIndex = 0;
         };
-
+        let pauseTimeout;
         utter.onboundary = (event) => {
             if (event.charIndex === undefined) return;
         
@@ -156,9 +156,14 @@ const read = (textRead) => {
         
             if (!char) return;
         
-            // spasi → tutup mulut
-            if (char === ' ') {
+             clearTimeout(pauseTimeout);
+
+            // SPASI / TITIK / KOMA
+            if (char === ' ' || char === '.' || char === ',') {
                 resetMouth();
+        
+                // tahan mulut tertutup sebentar
+                pauseTimeout = setTimeout(() => {}, 120);
                 return;
             }
         

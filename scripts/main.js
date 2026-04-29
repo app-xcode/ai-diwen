@@ -1,5 +1,7 @@
 const mouth = document.getElementById('mouth');
 
+mouth.style.transition = "all 0.1s ease";
+
 // Mapping vokal ke ukuran mulut (rx, ry)
 const mouthShapes = {
     'A': { rx: 14, ry: 10, more: ['H', 'K'] },

@@ -61,10 +61,9 @@ function animateMouthFromString(str, delay = 200, startIndex = 0) {
         const key = str[i].toUpperCase();
         let found = false;
         let currentDelay = delay;
-
-        if (str[i] === '.' || str[i] === ',') {
+        if (char === '.' || char === ',' || char === ' ') {
             resetMouth();
-            currentDelay = 500;
+            currentDelay = char === '.' ? 250 : 120;
         } else if (mouthShapes[key]) {
             const { rx, ry } = mouthShapes[key];
             setMouthShape(rx, ry);
@@ -134,19 +133,14 @@ const read = (textRead) => {
         const indoVoice = voices.find(v => v.lang === 'id-ID' && v.name.includes('Google'));
         if (indoVoice) utter.voice = indoVoice;
 
-        utter.onstart = () => {
-            isPaused = false;
-            animIndex = 0;
-            //animateMouthFromString(textToSpeak, 50, animIndex);
-            stopIdleMouth();
-            startIdleMouth();
+       utter.onstart = () => {
+        stopIdleMouth();
+        animateMouthFromString(textToSpeak, 60);
         };
+        
         utter.onend = () => {
-              resetMouth();
-            stopIdleMouth(); // 🔥 tambah ini
             stopMouthAnimation();
-            isPaused = false;
-            animIndex = 0;
+            resetMouth();
         };
         let pauseTimeout;
         utter.onboundary = (event) => {

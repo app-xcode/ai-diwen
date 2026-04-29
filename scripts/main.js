@@ -190,6 +190,7 @@ const read = () => {
 
         window.speechSynthesis.speak(utter);
     }else{
+        resetMouth();
         speechSynthesis.cancel();
         stopMouthAnimation();
         isPaused = false;

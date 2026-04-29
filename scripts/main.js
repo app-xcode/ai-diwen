@@ -99,10 +99,12 @@ function stopMouthAnimation() {
 
 document.getElementById('assistant-avatar').addEventListener('click', () => {
      if (!isPaused) {
+         stopIdleMouth();
         speechSynthesis.pause();
         stopMouthAnimation();
         isPaused = true;
     } else if (isPaused) {
+         startIdleMouth();
         speechSynthesis.resume();
         isPaused = false;
        // animateMouthFromString(textToSpeak, 50, animIndex);
@@ -126,7 +128,7 @@ const read = () => {
     if (!utter || speechSynthesis.speaking === false) {
         utter = new SpeechSynthesisUtterance(textToSpeak);
         utter.lang = 'id-ID';
-        utter.pitch = .1;   // Pitch tinggi (maksimal 2)
+        utter.pitch = 1;   // Pitch tinggi (maksimal 2)
         const voices = window.speechSynthesis.getVoices();
         // Coba cari suara Google
         const indoVoice = voices.find(v => v.lang === 'id-ID' && v.name.includes('Google'));
@@ -182,7 +184,7 @@ const read = () => {
             }
         
             // fallback
-            resetMouth();
+            setMouthShape(10, 4);
         };
 
         window.speechSynthesis.speak(utter);

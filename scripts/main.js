@@ -139,6 +139,7 @@ const read = (textRead) => {
             animIndex = 0;
             //animateMouthFromString(textToSpeak, 50, animIndex);
             stopIdleMouth();
+            startIdleMouth();
         };
         utter.onend = () => {
               resetMouth();

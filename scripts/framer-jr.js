@@ -88,15 +88,19 @@ function safeDecodeBase64(str) {
 }
 
 function updateH1() {
-    var interval2 = setInterval(() => {
+    const interval2 = setInterval(() => {
         const kepada = localStorage.getItem("kepada");
-        if (kepada && document.querySelector(`h1`)) {
-            document.querySelector(`h1`).innerHTML = kepada;
-            if (document.querySelector(`h1`).innerHTML === kepada) {
+        const h1Elements = document.querySelectorAll("h1");
+
+        if (h1Elements.length > 0) {
+            h1Elements.forEach((h1) => {
+                h1.innerHTML = kepada || "";
+            });
+
+            // hentikan interval jika sudah berhasil diisi
+            if (kepada) {
                 clearInterval(interval2);
             }
-        } else if (document.querySelector(`h1`)) {
-            document.querySelector(`h1`).innerHTML = "";
         }
     }, 100);
 }

@@ -106,7 +106,7 @@ window.onload = function () {
     if (hash) {
         var decoded = safeDecodeBase64(hash);
         if (decoded) {
-            decoded = "Dear<br>" + decoded;
+            decoded = decoded;
             localStorage.setItem("kepada", decoded);
             window.location.hash = "";
             document.querySelector(`h1`).innerHTML = decoded;

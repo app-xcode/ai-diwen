@@ -8,9 +8,14 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "https://framerusercontent.com/images/RWVzeICpsmfojXc6kKvNSMYgw.png?width=307&height=307",
+      "src": "https://framerusercontent.com/images/RWVzeICpsmfojXc6kKvNSMYgw.png?width=192&height=192",
       "type": "image/png",
-      "sizes": "307x307"
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://framerusercontent.com/images/RWVzeICpsmfojXc6kKvNSMYgw.png?width=512&height=512",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ]
 }

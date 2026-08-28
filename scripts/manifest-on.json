@@ -1,0 +1,16 @@
+{
+  "name": "Ony & No’e",
+  "short_name": "Ony & No’e",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#4D5577",
+  "theme_color": "#4D5577",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://framerusercontent.com/images/RWVzeICpsmfojXc6kKvNSMYgw.png?width=307&height=307",
+      "type": "image/png",
+      "sizes": "307x307"
+    }
+  ]
+}
